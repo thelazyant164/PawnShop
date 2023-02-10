@@ -1,3 +1,2 @@
-﻿
-using var game = new ChessUltimate.Game1();
+﻿using var game = new ChessUltimate.GameInstance();
 game.Run();
