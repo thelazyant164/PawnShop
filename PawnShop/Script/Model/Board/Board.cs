@@ -40,7 +40,6 @@ namespace PawnShop.Script.Model.Board
 
         public Board()
         {
-            PieceFactory.OnPieceAdd += AddPiece;
             foreach (Rank rank in Enum.GetValues(typeof(Rank)))
             {
                 foreach (File file in Enum.GetValues(typeof(File))) 
@@ -48,7 +47,6 @@ namespace PawnShop.Script.Model.Board
                     positions.Add(new Position(file, rank));
                 }
             }
-            PieceFactory.InitializePieces();
         }
 
         public bool TryLocate(File file, Rank rank, out Position? position)
@@ -57,17 +55,17 @@ namespace PawnShop.Script.Model.Board
             return position != null;
         }
 
-        public void AddPiece(object sender, BasePiece.OnAddPieceEventArgs eventArgs)
+        public void AddPiece(BasePiece newPiece)
         {
-            File file = eventArgs.Piece.StartPosition.File;
-            Rank rank = eventArgs.Piece.StartPosition.Rank;
+            File file = newPiece.StartPosition.File;
+            Rank rank = newPiece.StartPosition.Rank;
             if (TryLocate(file, rank, out Position? position))
             {
                 if (position!.IsOccupied)
                 {
                     throw new Exception("Error: trying to add piece to occupied position.");
                 }
-                position.OccupyingPiece = eventArgs.Piece;
+                position.OccupyingPiece = newPiece;
             }
             else
             {
@@ -75,13 +73,13 @@ namespace PawnShop.Script.Model.Board
             }
         }
 
-        public void RemovePiece(object sender, BasePiece.OnRemovePieceEventArgs eventArgs)
+        public void RemovePiece(BasePiece removedPiece)
         {
-            File file = eventArgs.Piece.StartPosition.File;
-            Rank rank = eventArgs.Piece.StartPosition.Rank;
+            File file = removedPiece.StartPosition.File;
+            Rank rank = removedPiece.StartPosition.Rank;
             if (TryLocate(file, rank, out Position? position))
             {
-                if (position!.OccupyingPiece != eventArgs.Piece)
+                if (position!.OccupyingPiece != removedPiece)
                 {
                     throw new Exception(
                         "Error: trying to remove piece from somewhere piece is not."

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PawnShop.Script.Model.Board;
+using PawnShop.Script.Model.Piece;
 using PawnShop.Script.Model.Player;
 using PawnShop.Script.System.Gameplay;
 using PawnShop.Script.System.Gameplay.GameState;
 using PawnShop.Script.Utility;
+using static PawnShop.Script.Model.Player.BasePlayer;
 
 namespace PawnShop.Script.Manager.Gameplay
 {
@@ -29,8 +31,8 @@ namespace PawnShop.Script.Manager.Gameplay
 
         public struct GameConfig
         {
-            public BasePlayer.PlayerType White;
-            public BasePlayer.PlayerType Black;
+            public PlayerType White;
+            public PlayerType Black;
             public DateTime StartDate;
         }
 
@@ -40,6 +42,9 @@ namespace PawnShop.Script.Manager.Gameplay
 
         public void Init(GameConfig config)
         {
+            PieceFactory.Path("D:\\Coding\\Projects\\Git\\PawnShop\\PawnShop\\Data\\CSV\\Piece\\", "InitBoard.csv");
+            PieceFactory.OnPieceAdd += Board.AddPiece;
+            PieceFactory.InitializePieces();
             gameStateSystem.SetGameState(new GameInProgress(gameStateSystem));
             TurnSystem = new TurnSystem(config);
         }

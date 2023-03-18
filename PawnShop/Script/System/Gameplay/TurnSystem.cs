@@ -34,7 +34,7 @@ namespace PawnShop.Script.System.Gameplay
                 new BasePlayer(BasePlayer.PlayerSide.White, config.White),
                 new BasePlayer(BasePlayer.PlayerSide.Black, config.Black)
             };
-            OnTurnChange += (object sender, OnTurnChangeEventArgs eventArgs) =>
+            OnTurnChange += (object? sender, OnTurnChangeEventArgs eventArgs) =>
             {
                 CurrentTurn = eventArgs.Side;
                 CurrentType = eventArgs.Type;

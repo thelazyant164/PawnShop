@@ -10,7 +10,7 @@ namespace PawnShop.Script.Model.GUI.View
 {
     public class BoardView : BaseView 
     { 
-        List<IVisible> Positions = new List<IVisible>();
+        private List<IVisible> positions = new List<IVisible>();
 
         public BoardView() 
         {
@@ -19,15 +19,15 @@ namespace PawnShop.Script.Model.GUI.View
 
         public override void Draw()
         {
-            foreach (IInteractable position in Positions) 
+            foreach (IInteractable position in positions) 
             {
                 position.Draw();
             }
         }
 
-        private void OnPositionInit(object sender, Position.OnPositionInitEventArgs eventArgs) 
+        private void OnPositionInit(Position newPosition) 
         {
-            Positions.Add(BoardViewFactory.InitPosition(eventArgs.Position));
+            positions.Add(BoardViewFactory.InitPosition(newPosition));
         }
     }
 }

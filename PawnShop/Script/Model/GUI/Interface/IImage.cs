@@ -13,7 +13,7 @@ namespace PawnShop.Script.Model.GUI.Interface
         {
             public Bitmap Texture;
 
-            public ImageContent(Bitmap texture, Color tint)
+            public ImageContent(Bitmap texture)
             {
                 Texture = texture;
             }

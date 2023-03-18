@@ -59,11 +59,11 @@ namespace PawnShop.Script.Model.Player
             PieceFactory.OnPieceAdd += Add;
         }
 
-        private void Add(object sender, BasePiece.OnAddPieceEventArgs eventArgs)
+        private void Add(BasePiece newPiece)
         {
-            if (eventArgs.Piece.Side == Side)
+            if (newPiece.Side == Side)
             {
-                info.Add(eventArgs.Piece);
+                info.Add(newPiece);
             }
         }
 

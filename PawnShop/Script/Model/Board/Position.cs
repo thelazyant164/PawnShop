@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PawnShop.Script.Utility;
 
 namespace PawnShop.Script.Model.Board
 {
     public class Position
     {
-        public class OnPositionInitEventArgs : EventArgs
-        {
-            public Position Position;
-        }
-
-        public static event EventHandler<OnPositionInitEventArgs> OnPositionInit;
+        public static event StaticEvent<Position>.Handler? OnPositionInit;
 
         public Board.File File { get; private set; }
 
@@ -25,7 +21,7 @@ namespace PawnShop.Script.Model.Board
         {
             File = file;
             Rank = rank;
-            OnPositionInit?.Invoke(this, new OnPositionInitEventArgs { Position = this });
+            OnPositionInit?.Invoke(this);
         }
 
         public bool IsOccupied
@@ -36,6 +32,17 @@ namespace PawnShop.Script.Model.Board
         public bool IsOccupiedByPlayer(Player.BasePlayer player)
         {
             return (!IsOccupied) && OccupyingPiece?.Side == player.Side;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is not Position) return false;
+            return File == (obj as Position)!.File && Rank == (obj as Position)!.Rank;
+        }
+
+        public override string ToString()
+        {
+            return $"Position {File}{Rank}";
         }
     }
 }

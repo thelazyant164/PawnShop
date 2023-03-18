@@ -19,6 +19,11 @@ namespace PawnShopTest
         public void BoardInitProperly()
         {
             Assert.That(board, Is.Not.Null);
+        }
+
+        [Test]
+        public void LocatePos()
+        {
             Assert.True(board.TryLocate(Board.File.A, Board.Rank.f1, out Position? position));
             Assert.That(position, Is.Not.Null);
             Assert.True(board.TryLocate(Board.File.H, Board.Rank.f8, out position));

@@ -46,7 +46,7 @@ namespace PawnShop.Script.Model.GUI.View
                     x = PositionDimension * 7;
                     break;
                 default:
-                    throw new Exception($"Invalid File when initializing position's view on board: encountered {position.File}");
+                    throw new Exception($"Invalid file when initializing position's view on board: encountered {position.File}");
             }
             switch (position.Rank)
             {

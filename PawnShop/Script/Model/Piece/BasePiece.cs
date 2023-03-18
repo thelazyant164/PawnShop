@@ -1,39 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PawnShop.Script.Model.Board;
+using static PawnShop.Script.Model.Player.BasePlayer;
 
 namespace PawnShop.Script.Model.Piece
 {
     public class BasePiece
     {
-        public class OnAddPieceEventArgs : EventArgs
-        {
-            public BasePiece Piece;
-        }
-
-        public class OnRemovePieceEventArgs : EventArgs
-        {
-            public BasePiece Piece;
-        }
-
         public struct PieceIdentity
         {
             public readonly Position StartPosition;
             public PieceRole Role;
-            public Player.BasePlayer.PlayerSide Side;
+            public PlayerSide Side;
 
             public PieceIdentity(
                 Position startPosition,
                 PieceRole role,
-                Player.BasePlayer.PlayerSide side
+                PlayerSide side
             )
             {
                 StartPosition = startPosition;
                 Role = role;
                 Side = side;
+            }
+
+            public override bool Equals(object? obj)
+            {
+                if (obj is not PieceIdentity) return false;
+                return StartPosition.Equals(((PieceIdentity)obj)!.StartPosition)
+                    && Role == ((PieceIdentity)obj)!.Role
+                    && Side == ((PieceIdentity)obj)!.Side;
+            }
+
+            public override string ToString()
+            {
+                return $"{Side} {Role} @ {StartPosition}";
             }
         }
 
@@ -54,7 +59,7 @@ namespace PawnShop.Script.Model.Piece
             this.identity = identity;
         }
 
-        public Player.BasePlayer.PlayerSide Side
+        public PlayerSide Side
         {
             get => identity.Side;
         }
@@ -67,6 +72,17 @@ namespace PawnShop.Script.Model.Piece
         public Position StartPosition
         {
             get => identity.StartPosition;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is not BasePiece) return false;
+            return identity.Equals((obj as BasePiece)!.identity);
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
 
         public string Name
