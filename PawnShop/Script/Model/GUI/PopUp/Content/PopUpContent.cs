@@ -11,7 +11,7 @@ namespace PawnShop.Script.Model.GUI.PopUp.Content
     public abstract class PopUpContent
     {
         private readonly List<IClickable> buttons;
-        protected Action _onClose { get; set; }
+        protected Action? _onClose { get; set; }
 
         public PopUpContent(params IClickable[] buttons)
         {
@@ -44,14 +44,14 @@ namespace PawnShop.Script.Model.GUI.PopUp.Content
             }
         }
 
-        protected virtual void Close(object sender, OnMouseEventArgs eventArgs)
+        protected virtual void Close(object? sender, EventArgs eventArgs)
         {
             foreach (IClickable button in buttons)
             {
                 button.OnClick -= Close;
             }
             buttons.Clear();
-            _onClose();
+            _onClose!();
         }
     }
 }

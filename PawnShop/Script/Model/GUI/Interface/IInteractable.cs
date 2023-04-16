@@ -8,6 +8,11 @@ namespace PawnShop.Script.Model.GUI.Interface
 {
     public interface IInteractable : IVisible
     {
+        public abstract event EventHandler OnSelect;
+        public abstract event EventHandler OnDeselect;
+
+        public abstract bool IsSelected { get; }
+
         public abstract bool Active { get; }
 
         public abstract void Activate();

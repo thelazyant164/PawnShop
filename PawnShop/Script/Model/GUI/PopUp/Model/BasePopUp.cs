@@ -10,55 +10,26 @@ using static PawnShop.Script.Model.GUI.Interface.IClickable;
 using static PawnShop.Script.Model.GUI.Interface.IHoverable;
 using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
 using PawnShop.Script.Model.GUI.PopUp.Content;
+using PawnShop.Script.Model.GUI.Component;
 using SplashKitSDK;
 
 namespace PawnShop.Script.Model.GUI.PopUp.Model
 {
-    public abstract class BasePopUp<T> : IVisible where T : PopUpContent
+    public abstract class BasePopUp<T> : InteractableComponent where T : PopUpContent
     {
         public class OnDismissEventArgs : EventArgs
         {
             public BasePopUp<T> Dismissed;
         }
 
-        public virtual event EventHandler<OnDismissEventArgs> OnDismiss;
-
-        public virtual int X { get; protected set; }
-
-        public virtual int Y { get; protected set; }
-
-        public virtual Point2D Origin => new Point2D { X = X, Y = Y };
-
-        public virtual int Width { get; protected set; }
-
-        public virtual int Height { get; protected set; }
-
-        public virtual Rectangle Rectangle
-        {
-            get =>
-                new Rectangle
-                {
-                    X = X,
-                    Y = Y,
-                    Width = Width,
-                    Height = Height
-                };
-        }
-
-        public virtual bool Active { get; protected set; } = true;
-
-        public virtual bool Visible { get; protected set; } = true;
-
-        public virtual bool IsSelected { get; protected set; } = false;
+        public virtual event EventHandler<OnDismissEventArgs>? OnDismiss;
+        public override event EventHandler? OnSelect;
+        public override event EventHandler? OnDeselect;
 
         protected T content { get; set; }
 
-        public BasePopUp(PrimitiveRect rect, T content)
+        public BasePopUp(PrimitiveRect rect, T content) : base(rect) 
         {
-            X = rect.Origin.X;
-            Y = rect.Origin.Y;
-            Width = rect.Dimension.Width;
-            Height = rect.Dimension.Height;
             this.content = content;
             content.Bind(() =>
             {
@@ -68,27 +39,7 @@ namespace PawnShop.Script.Model.GUI.PopUp.Model
             });
         }
 
-        public virtual void Activate()
-        {
-            Active = true;
-        }
-
-        public virtual void Deactivate()
-        {
-            Active = false;
-        }
-
-        public virtual void Show()
-        {
-            Visible = true;
-        }
-
-        public virtual void Hide()
-        {
-            Visible = false;
-        }
-
-        public virtual void Update()
+        public override void Update()
         {
             if (!Active)
             {
@@ -97,7 +48,7 @@ namespace PawnShop.Script.Model.GUI.PopUp.Model
             content.Update();
         }
 
-        public virtual void Draw()
+        public override void Draw()
         {
             if (!Visible)
                 return;

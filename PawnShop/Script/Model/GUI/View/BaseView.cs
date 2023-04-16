@@ -6,31 +6,31 @@ using System.Threading.Tasks;
 using PawnShop.Script.Model.GUI.Interface;
 using PawnShop.Script.Manager.GUI;
 using SplashKitSDK;
+using PawnShop.Script.System.GUI.Input;
+using PawnShop.Script.Model.Player;
+using PawnShop.Script.Model.GUI.Component;
 
 namespace PawnShop.Script.Model.GUI.View
 {
-    public abstract class BaseView : IVisible
+    public abstract class BaseView : VisibleComponent
     {
-        public virtual int X { get; protected set; }
+        protected virtual List<IInteractable> Interactables { get; } = new List<IInteractable>();
 
-        public virtual int Y { get; protected set; }
+        protected virtual List<IVisible> Visibles { get; } = new List<IVisible>();
 
-        public virtual Point2D Origin => new Point2D { X = X, Y = Y };
+        protected BasePlayer Player { get; }
 
-        public virtual bool Visible { get; protected set; } = true;
-
-        public virtual void Show()
+        public BaseView(BasePlayer player) 
         {
-            Visible = true;
+            Player = player;
         }
 
-        public virtual void Hide()
+        public virtual void RegisterView(BaseInputController playerInputController) 
         {
-            Visible = false;
-        }
-
-        public virtual void Draw()
-        {
+            foreach (IInteractable interactable in Interactables) 
+            {
+                playerInputController.Register(interactable);
+            }
         }
     }
 }

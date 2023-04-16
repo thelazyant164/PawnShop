@@ -5,13 +5,15 @@ namespace PawnShop.Script.Utility
 {
     public abstract class State
     {
-        protected readonly StateMachine _stateMachine;
+        protected readonly StateMachine stateMachine;
 
         public State(StateMachine stateMachine)
         {
-            _stateMachine = stateMachine;
+            this.stateMachine = stateMachine;
         }
 
-        public virtual void Progress() { }
+        public abstract void Progress();
+
+        public abstract void Terminate();
     }
 }

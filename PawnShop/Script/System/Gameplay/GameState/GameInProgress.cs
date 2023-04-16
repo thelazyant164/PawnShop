@@ -8,7 +8,7 @@ namespace PawnShop.Script.System.Gameplay.GameState
 {
     public class GameInProgress : GameState
     {
-        public GameInProgress(PieceStateSystem gameStateSystem) : base(gameStateSystem) { }
+        public GameInProgress(GameStateSystem gameStateSystem) : base(gameStateSystem) { }
 
         public override void Progress()
         {

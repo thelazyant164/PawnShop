@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SplashKitSDK;
+﻿using SplashKitSDK;
 
 namespace PawnShop.Script.Model.GUI.Interface
 {
@@ -11,10 +6,10 @@ namespace PawnShop.Script.Model.GUI.Interface
     {
         public struct Dimension
         {
-            public int Width;
-            public int Height;
+            public float Width;
+            public float Height;
 
-            public Dimension(int width, int height)
+            public Dimension(float width, float height)
             {
                 Width = width;
                 Height = height;
@@ -32,16 +27,16 @@ namespace PawnShop.Script.Model.GUI.Interface
                 Dimension = dimension;
             }
 
-            public PrimitiveRect(int x, int y, int width, int height)
+            public PrimitiveRect(float x, float y, float width, float height)
             {
                 Origin = new Position(x, y);
                 Dimension = new Dimension(width, height);
             }
         }
 
-        public abstract int Width { get; }
+        public abstract float Width { get; }
 
-        public abstract int Height { get; }
+        public abstract float Height { get; }
 
         public abstract Rectangle Rectangle { get; }
 

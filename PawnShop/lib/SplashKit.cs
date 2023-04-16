@@ -5421,7 +5421,7 @@ namespace SplashKitSDK
       __skreturn = __sklib__is_current_window__window(__skparam__wind);
       return __skadapter__to_bool(__skreturn);
     }
-    public static void MoveCurrentWindowTo(int x, int y)
+    public static void moveCurrentWindowTo(int x, int y)
     {
       int __skparam__x;
       int __skparam__y;
@@ -5429,7 +5429,7 @@ namespace SplashKitSDK
       __skparam__y = __skadapter__to_sklib_int(y);
       __sklib__move_current_window_to__int__int(__skparam__x, __skparam__y);
     }
-    public static void MoveWindowTo(string name, int x, int y)
+    public static void moveWindowTo(string name, int x, int y)
     {
       __sklib_string __skparam__name;
       int __skparam__x;
@@ -5440,7 +5440,7 @@ namespace SplashKitSDK
       __sklib__move_window_to__string_ref__int__int(__skparam__name, __skparam__x, __skparam__y);
     __skadapter__free__sklib_string(ref __skparam__name);
     }
-    public static void MoveWindowTo(Window wind, int x, int y)
+    public static void moveWindowTo(Window wind, int x, int y)
     {
       __sklib_ptr __skparam__wind;
       int __skparam__x;
@@ -8213,13 +8213,13 @@ namespace SplashKitSDK
       __skparam__offset_y = __skadapter__to_sklib_double(offsetY);
       __sklib__center_camera_on__sprite__double__double(__skparam__s, __skparam__offset_x, __skparam__offset_y);
     }
-    public static void MoveCameraBy(Vector2D offset)
+    public static void moveCameraBy(Vector2D offset)
     {
       __sklib_vector_2d __skparam__offset;
       __skparam__offset = __skadapter__to_sklib_vector_2d(offset);
       __sklib__move_camera_by__vector_2d_ref(__skparam__offset);
     }
-    public static void MoveCameraBy(double dx, double dy)
+    public static void moveCameraBy(double dx, double dy)
     {
       double __skparam__dx;
       double __skparam__dy;
@@ -8227,13 +8227,13 @@ namespace SplashKitSDK
       __skparam__dy = __skadapter__to_sklib_double(dy);
       __sklib__move_camera_by__double__double(__skparam__dx, __skparam__dy);
     }
-    public static void MoveCameraTo(Point2D pt)
+    public static void moveCameraTo(Point2D pt)
     {
       __sklib_point_2d __skparam__pt;
       __skparam__pt = __skadapter__to_sklib_point_2d(pt);
       __sklib__move_camera_to__point_2d_ref(__skparam__pt);
     }
-    public static void MoveCameraTo(double x, double y)
+    public static void moveCameraTo(double x, double y)
     {
       double __skparam__x;
       double __skparam__y;
@@ -8518,7 +8518,7 @@ namespace SplashKitSDK
       __skreturn = __sklib__mouse_down__mouse_button(__skparam__button);
       return __skadapter__to_bool(__skreturn);
     }
-    public static Vector2D MouseMovement()
+    public static Vector2D Mousemovement()
     {
       __sklib_vector_2d __skreturn;
       __skreturn = __sklib__mouse_movement();
@@ -8568,7 +8568,7 @@ namespace SplashKitSDK
       __skreturn = __sklib__mouse_y();
       return __skadapter__to_float(__skreturn);
     }
-    public static void MoveMouse(double x, double y)
+    public static void moveMouse(double x, double y)
     {
       double __skparam__x;
       double __skparam__y;
@@ -8576,7 +8576,7 @@ namespace SplashKitSDK
       __skparam__y = __skadapter__to_sklib_double(y);
       __sklib__move_mouse__double__double(__skparam__x, __skparam__y);
     }
-    public static void MoveMouse(Point2D point)
+    public static void moveMouse(Point2D point)
     {
       __sklib_point_2d __skparam__point;
       __skparam__point = __skadapter__to_sklib_point_2d(point);
@@ -10917,7 +10917,7 @@ namespace SplashKitSDK
     {
       __sklib__end_advanced_terminal();
     }
-    public static void MoveCursorTo(int x, int y)
+    public static void moveCursorTo(int x, int y)
     {
       int __skparam__x;
       int __skparam__y;
@@ -11814,13 +11814,13 @@ namespace SplashKitSDK
     __skadapter__free__sklib_string(ref __skparam__name);
       return __skadapter__to_bool(__skreturn);
     }
-    public static void MoveSprite(Sprite s)
+    public static void moveSprite(Sprite s)
     {
       __sklib_ptr __skparam__s;
       __skparam__s = __skadapter__to_sklib_sprite(s);
       __sklib__move_sprite__sprite(__skparam__s);
     }
-    public static void MoveSprite(Sprite s, Vector2D distance)
+    public static void moveSprite(Sprite s, Vector2D distance)
     {
       __sklib_ptr __skparam__s;
       __sklib_vector_2d __skparam__distance;
@@ -11828,7 +11828,7 @@ namespace SplashKitSDK
       __skparam__distance = __skadapter__to_sklib_vector_2d(distance);
       __sklib__move_sprite__sprite__vector_2d_ref(__skparam__s, __skparam__distance);
     }
-    public static void MoveSprite(Sprite s, Vector2D distance, float pct)
+    public static void moveSprite(Sprite s, Vector2D distance, float pct)
     {
       __sklib_ptr __skparam__s;
       __sklib_vector_2d __skparam__distance;
@@ -11838,7 +11838,7 @@ namespace SplashKitSDK
       __skparam__pct = __skadapter__to_sklib_float(pct);
       __sklib__move_sprite__sprite__vector_2d_ref__float(__skparam__s, __skparam__distance, __skparam__pct);
     }
-    public static void MoveSprite(Sprite s, float pct)
+    public static void moveSprite(Sprite s, float pct)
     {
       __sklib_ptr __skparam__s;
       float __skparam__pct;
@@ -11846,7 +11846,7 @@ namespace SplashKitSDK
       __skparam__pct = __skadapter__to_sklib_float(pct);
       __sklib__move_sprite__sprite__float(__skparam__s, __skparam__pct);
     }
-    public static void MoveSpriteTo(Sprite s, double x, double y)
+    public static void moveSpriteTo(Sprite s, double x, double y)
     {
       __sklib_ptr __skparam__s;
       double __skparam__x;
@@ -12257,7 +12257,7 @@ namespace SplashKitSDK
       __skreturn = __sklib__sprite_mass__sprite(__skparam__s);
       return __skadapter__to_float(__skreturn);
     }
-    public static bool SpriteMoveFromAnchorPoint(Sprite s)
+    public static bool SpritemoveFromAnchorPoint(Sprite s)
     {
       __sklib_ptr __skparam__s;
       int __skreturn;
@@ -12265,7 +12265,7 @@ namespace SplashKitSDK
       __skreturn = __sklib__sprite_move_from_anchor_point__sprite(__skparam__s);
       return __skadapter__to_bool(__skreturn);
     }
-    public static void SpriteMoveTo(Sprite s, Point2D pt, float takingSeconds)
+    public static void SpritemoveTo(Sprite s, Point2D pt, float takingSeconds)
     {
       __sklib_ptr __skparam__s;
       __sklib_point_2d __skparam__pt;
@@ -12461,7 +12461,7 @@ namespace SplashKitSDK
       __skparam__value = __skadapter__to_sklib_float(value);
       __sklib__sprite_set_mass__sprite__float(__skparam__s, __skparam__value);
     }
-    public static void SpriteSetMoveFromAnchorPoint(Sprite s, bool value)
+    public static void SpriteSetmoveFromAnchorPoint(Sprite s, bool value)
     {
       __sklib_ptr __skparam__s;
       int __skparam__value;
@@ -15352,7 +15352,7 @@ namespace SplashKitSDK
     HttpStatusOk = 200,
     HttpStatusCreated = 201,
     HttpStatusNoContent = 204,
-    HttpStatusMovedPermanently = 301,
+    HttpStatusmovedPermanently = 301,
     HttpStatusFound = 302,
     HttpStatusSeeOther = 303,
     HttpStatusBadRequest = 400,
@@ -16796,9 +16796,9 @@ public class Window : PointerWrapper
     }
 
 
-    public void MoveTo(int x, int y)
+    public void moveTo(int x, int y)
     {
-        SplashKit.MoveWindowTo(this, x, y);
+        SplashKit.moveWindowTo(this, x, y);
     }
 
 
@@ -18628,33 +18628,33 @@ public class Sprite : PointerWrapper
     }
 
 
-    public void Move()
+    public void move()
     {
-        SplashKit.MoveSprite(this);
+        SplashKit.moveSprite(this);
     }
 
 
-    public void Move(Vector2D distance)
+    public void move(Vector2D distance)
     {
-        SplashKit.MoveSprite(this, distance);
+        SplashKit.moveSprite(this, distance);
     }
 
 
-    public void Move(Vector2D distance, float pct)
+    public void move(Vector2D distance, float pct)
     {
-        SplashKit.MoveSprite(this, distance, pct);
+        SplashKit.moveSprite(this, distance, pct);
     }
 
 
-    public void Move(float pct)
+    public void move(float pct)
     {
-        SplashKit.MoveSprite(this, pct);
+        SplashKit.moveSprite(this, pct);
     }
 
 
-    public void MoveTo(double x, double y)
+    public void moveTo(double x, double y)
     {
-        SplashKit.MoveSpriteTo(this, x, y);
+        SplashKit.moveSpriteTo(this, x, y);
     }
 
 
@@ -18814,9 +18814,9 @@ public class Sprite : PointerWrapper
     }
 
 
-    public void MoveTo(Point2D pt, float takingSeconds)
+    public void moveTo(Point2D pt, float takingSeconds)
     {
-        SplashKit.SpriteMoveTo(this, pt, takingSeconds);
+        SplashKit.SpritemoveTo(this, pt, takingSeconds);
     }
 
 
@@ -19090,10 +19090,10 @@ public class Sprite : PointerWrapper
         get { return SplashKit.SpriteMass(this); }
           set { SplashKit.SpriteSetMass(this, value); }
     }
-    public bool MoveFromAnchorPoint
+    public bool moveFromAnchorPoint
     {
-        get { return SplashKit.SpriteMoveFromAnchorPoint(this); }
-          set { SplashKit.SpriteSetMoveFromAnchorPoint(this, value); }
+        get { return SplashKit.SpritemoveFromAnchorPoint(this); }
+          set { SplashKit.SpriteSetmoveFromAnchorPoint(this, value); }
     }
     public string Name
     {
@@ -19471,27 +19471,27 @@ public static class Camera{
     }
 
 
-    public static void MoveBy(Vector2D offset)
+    public static void moveBy(Vector2D offset)
     {
-        SplashKit.MoveCameraBy(offset);
+        SplashKit.moveCameraBy(offset);
     }
 
 
-    public static void MoveBy(double dx, double dy)
+    public static void moveBy(double dx, double dy)
     {
-        SplashKit.MoveCameraBy(dx, dy);
+        SplashKit.moveCameraBy(dx, dy);
     }
 
 
-    public static void MoveTo(Point2D pt)
+    public static void moveTo(Point2D pt)
     {
-        SplashKit.MoveCameraTo(pt);
+        SplashKit.moveCameraTo(pt);
     }
 
 
-    public static void MoveTo(double x, double y)
+    public static void moveTo(double x, double y)
     {
-        SplashKit.MoveCameraTo(x, y);
+        SplashKit.moveCameraTo(x, y);
     }
 
 

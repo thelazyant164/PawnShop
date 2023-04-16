@@ -9,11 +9,6 @@ namespace PawnShop.Script.Model.GUI.Interface
 {
     public interface IHoverable : IPrimitiveRect, IInteractable
     {
-        public class OnHoverEventArgs : EventArgs
-        {
-            public Point2D MousePosition;
-        }
-
-        public abstract event EventHandler<OnHoverEventArgs> OnHover;
+        public abstract event EventHandler OnHover;
     }
 }

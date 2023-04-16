@@ -8,11 +8,6 @@ namespace PawnShop.Script.System.Gameplay.GameState
 {
     public class Stalemate : GameState
     {
-        public Stalemate(PieceStateSystem gameStateSystem) : base(gameStateSystem) { }
-
-        public override void Progress()
-        {
-            base.Progress();
-        }
+        public Stalemate(GameStateSystem gameStateSystem) : base(gameStateSystem) { }
     }
 }

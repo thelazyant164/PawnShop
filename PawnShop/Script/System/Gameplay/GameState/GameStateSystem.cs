@@ -7,7 +7,7 @@ using PawnShop.Script.Utility;
 
 namespace PawnShop.Script.System.Gameplay.GameState
 {
-    public class PieceStateSystem : StateMachine
+    public class GameStateSystem : StateMachine
     {
         public GameState CurrentGameState
         {

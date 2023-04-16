@@ -15,13 +15,12 @@ using SplashKitSDK;
 namespace PawnShop.Script.Model.GUI.Button.Model
 {
     public sealed class TextButton
-        : BaseButton<TextButtonState, TextButtonUIState, TextButtonUIStateData>,
-            IText,
-            IVisible
+        : BaseButton<TextButtonUIState, TextButtonUIStateData>,
+            IText
     {
         public TextContent Content
         {
-            get => UIState.GetState(state.State).Content;
+            get => UIState!.GetState(state.State).Content;
         }
 
         public TextButton(PrimitiveRect rect, TextButtonUIState textButtonUI)
@@ -31,7 +30,6 @@ namespace PawnShop.Script.Model.GUI.Button.Model
         {
             if (!Visible)
                 return;
-            base.Draw();
             SplashKit.DrawText(Content.Text, Content.Color, Content.Font, Content.Size, X, Y);
         }
     }

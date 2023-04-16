@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PawnShop.Script.Model.GUI.Interface;
 using PawnShop.Script.Model.Player;
+using static PawnShop.Script.Model.Player.BasePlayer;
 
 namespace PawnShop.Script.System.GUI.Input
 {
@@ -14,9 +15,21 @@ namespace PawnShop.Script.System.GUI.Input
 
         protected List<IInteractable> interactables = new List<IInteractable>();
 
-        public BaseInputController(BasePlayer.PlayerSide side)
+        public BaseInputController(PlayerSide side)
         {
             Side = side;
+        }
+
+        public static BaseInputController Init(BasePlayer player)
+        {
+            if (player.Type == PlayerType.Manual) 
+            {
+                return new AIInputController(player.Side);
+            }
+            else
+            {
+                return new PlayerInputController(player.Side);
+            }
         }
 
         public virtual void Register(IInteractable interactable)

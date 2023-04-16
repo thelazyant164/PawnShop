@@ -24,9 +24,9 @@ namespace PawnShopTest
         [Test]
         public void LocatePos()
         {
-            Assert.True(board.TryLocate(Board.File.A, Board.Rank.f1, out Position? position));
+            Assert.True(board.TryLocate(Board.File.A, Board.Rank.r1, out Position? position));
             Assert.That(position, Is.Not.Null);
-            Assert.True(board.TryLocate(Board.File.H, Board.Rank.f8, out position));
+            Assert.True(board.TryLocate(Board.File.H, Board.Rank.r8, out position));
             Assert.That(position, Is.Not.Null);
         }
     }

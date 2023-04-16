@@ -13,25 +13,30 @@ namespace PawnShop.Script.Model.Player
     {
         public PlayerSide Side { get; private set; }
 
-        public List<BasePiece> Pieces { get; private set; }
+        public PlayerType Type { get; private set; }
 
-        public List<Position> Reign { get; private set; }
+        public List<BasePiece> Pieces { get; private set; } = new List<BasePiece>();
+
+        public IReadOnlySet<Position> Reign
+        {
+            get
+            {
+                HashSet<Position> result = new HashSet<Position>();
+                foreach (BasePiece piece in Pieces) 
+                {
+                    if (piece.Reign != null)
+                    {
+                        result = new HashSet<Position>(result.Concat(piece.Reign));
+                    }
+                }
+                return result;
+            }
+        }
 
         public PlayerInfo(PlayerSide side, PlayerType type)
         {
             Side = side;
-            Pieces = new List<BasePiece>();
-            switch (type)
-            {
-                case PlayerType.Manual:
-                    break;
-                case PlayerType.AI:
-                    break;
-                default:
-                    throw new Exception(
-                        "Game config error - incorrect player type declaration during initialization."
-                    );
-            }
+            Type = type;
         }
 
         public void Add(BasePiece piece)
@@ -44,14 +49,12 @@ namespace PawnShop.Script.Model.Player
             Pieces.Remove(piece);
         }
 
-        public void UpdateReign()
+        public void Update()
         {
-            throw new NotImplementedException();
-        }
-
-        public bool IsGuarding(Position position)
-        {
-            return Reign.Contains(position);
+            foreach (BasePiece piece in Pieces) 
+            {
+                piece.Progress();
+            }
         }
     }
 }

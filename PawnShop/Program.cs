@@ -11,11 +11,14 @@ namespace PawnShop
     {
         public static void Main(string[] args)
         {
-            Window window = new Window("PawnShop server", 800, 600);
+            //Window window = new Window("PawnShop server", 2294, 940); // maximum size Splashkit window - screen ratio 24:9
+            Window window = new Window("PawnShop server", 1280, 720); // maximum size Splashkit window - screen ratio 16:9
+            window.moveTo(0, 0);
+
             GameManager.GameConfig config = new GameManager.GameConfig
             {
                 StartDate = DateTime.Now,
-                Black = AI,
+                Black = Manual,
                 White = Manual
             };
             GameManager gameManager = GameManager.Instance;
@@ -24,9 +27,11 @@ namespace PawnShop
             viewManager.Init(config);
             do
             {
-                gameManager.Update();
-                viewManager.Draw();
+                //Console.WriteLine($"X: {SplashKit.MouseX()}, Y:{SplashKit.MouseY()}");
                 SplashKit.ProcessEvents();
+                gameManager.Update();
+                viewManager.Update();
+                viewManager.Draw();
                 SplashKit.RefreshScreen();
             }
             while (!window.CloseRequested);

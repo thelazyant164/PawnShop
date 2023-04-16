@@ -5,22 +5,25 @@ namespace PawnShop.Script.Utility
 {
     public abstract class StateMachine
     {
-        protected State _currentState;
-
+        protected State? currentState;
         protected State CurrentState
         {
-            get => _currentState;
+            get 
+            {
+                if (currentState == null) throw new Exception("Invalid state machine: currentState is null");
+                return currentState;
+            }
         }
 
         protected void SetState(State newState)
         {
-            _currentState = newState;
-            // TODO: implement Coroutine
+            currentState?.Terminate();
+            currentState = newState;
         }
 
         public virtual void Update()
         {
-            _currentState?.Progress();
+            currentState?.Progress();
         }
     }
 }

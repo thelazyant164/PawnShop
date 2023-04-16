@@ -3,85 +3,203 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PawnShop.Script.Model.Board;
+using PawnShop.Script.Model.Piece;
 using PawnShop.Script.Model.GUI.Button.Model;
-using PawnShop.Script.Model.GUI.Interface;
 using PawnShop.Script.Model.GUI.Button.UIState;
+using PawnShop.Script.Model.GUI.Button.UIStateData;
+using static PawnShop.Script.Model.Board.Board;
+using static PawnShop.Script.Model.Piece.BasePiece;
+using static PawnShop.Script.Model.Piece.BasePiece.PieceRole;
+using static PawnShop.Script.Model.Player.BasePlayer;
+using static PawnShop.Script.Model.Player.BasePlayer.PlayerSide;
+using static PawnShop.Script.Model.GUI.Interface.IImage;
 using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
-using PawnShop.Data.View.Board.Position;
+using SplashKitSDK;
+using PawnShop.Script.Model.GUI.GameElement;
+using PawnShop.Script.Model.GUI.Interface;
 
 namespace PawnShop.Script.Model.GUI.View
 {
+    /// <summary>
+    /// Static utility helper class to generate UI board elements.
+    /// </summary>
     public static class BoardViewFactory
     {
-        private readonly static int PositionDimension = 120;
+        private readonly static string rootDir = "D:\\Coding\\Projects\\Git\\PawnShop\\PawnShop\\Asset\\Basic Chess Asset\\";
 
-        public static IVisible InitPosition(Position position) 
+        private readonly static string boardDir = $"{rootDir}\\Boards";
+
+        private readonly static string pieceDir = $"{rootDir}\\Pieces";
+
+        private readonly static string positionDir = $"{rootDir}\\Positions";
+
+        //public readonly static Bitmap BoardGraphic = new Bitmap("Board", $"{boardDir}\\Board_940_940.png");
+        public readonly static Bitmap BoardGraphic = new Bitmap("Board", $"{boardDir}\\Board_720_720.png"); // for 1368x720 res
+
+        //private readonly static float PositionSize = 117.5f; // for 2294x940 res
+        private readonly static float PositionSize = 90; // for 1368x720 res
+        private readonly static Dimension PositionDimension = new Dimension(PositionSize, PositionSize);
+
+        private readonly static ImageContent selectedPosition = 
+            new ImageContent(new Bitmap($"selected_position_indicator", $"{positionDir}\\selected.png"));
+        private readonly static ImageContent movablePosition = 
+            new ImageContent(new Bitmap($"movable_position_indicator", $"{positionDir}\\movable.png"));
+        private readonly static ImageContent capturablePosition = 
+            new ImageContent(new Bitmap($"capturable_position_indicator", $"{positionDir}\\capturable.png"));
+
+        public static IPrimitive.Position GetPosition(Coordinate coordinate) 
         {
-            int x;
-            int y;
-            switch (position.File)
+            float x;
+            float y;
+            switch (coordinate.File)
             {
                 case Board.Board.File.A:
                     x = 0;
                     break;
                 case Board.Board.File.B:
-                    x = PositionDimension;
+                    x = PositionSize;
                     break;
                 case Board.Board.File.C:
-                    x = PositionDimension * 2;
+                    x = PositionSize * 2;
                     break;
                 case Board.Board.File.D:
-                    x = PositionDimension * 3;
+                    x = PositionSize * 3;
                     break;
                 case Board.Board.File.E:
-                    x = PositionDimension * 4;
+                    x = PositionSize * 4;
                     break;
                 case Board.Board.File.F:
-                    x = PositionDimension * 5;
+                    x = PositionSize * 5;
                     break;
                 case Board.Board.File.G:
-                    x = PositionDimension * 6;
+                    x = PositionSize * 6;
                     break;
                 case Board.Board.File.H:
-                    x = PositionDimension * 7;
+                    x = PositionSize * 7;
                     break;
                 default:
-                    throw new Exception($"Invalid file when initializing position's view on board: encountered {position.File}");
+                    throw new Exception($"Invalid file: encountered {coordinate.File}");
             }
-            switch (position.Rank)
+            switch (coordinate.Rank)
             {
-                case Board.Board.Rank.f1:
-                    y = PositionDimension * 7;
+                case Rank.r1:
+                    y = PositionSize * 7;
                     break;
-                case Board.Board.Rank.f2:
-                    y = PositionDimension * 6;
+                case Rank.r2:
+                    y = PositionSize * 6;
                     break;
-                case Board.Board.Rank.f3:
-                    y = PositionDimension * 5;
+                case Rank.r3:
+                    y = PositionSize * 5;
                     break;
-                case Board.Board.Rank.f4:
-                    y = PositionDimension * 4;
+                case Rank.r4:
+                    y = PositionSize * 4;
                     break;
-                case Board.Board.Rank.f5:
-                    y = PositionDimension * 3;
+                case Rank.r5:
+                    y = PositionSize * 3;
                     break;
-                case Board.Board.Rank.f6:
-                    y = PositionDimension * 2;
+                case Rank.r6:
+                    y = PositionSize * 2;
                     break;
-                case Board.Board.Rank.f7:
-                    y = PositionDimension;
+                case Rank.r7:
+                    y = PositionSize;
                     break;
-                case Board.Board.Rank.f8:
+                case Rank.r8:
                     y = 0;
                     break;
                 default:
-                    throw new Exception($"Invalid rank when initializing position's view on board: encountered {position.Rank}");
+                    throw new Exception($"Invalid rank: encountered {coordinate.Rank}");
             }
-            return new ImageButton
+            return new IPrimitive.Position(x, y);
+        }
+
+        private static PrimitiveRect GetRect(Coordinate coordinate) 
+            => new PrimitiveRect(GetPosition(coordinate), PositionDimension);
+
+        public static InvisibleButton InitPositionButton(Position position) 
+        {
+            InvisibleButton clickablePosition = new InvisibleButton
             (
-                new PrimitiveRect(x, y, PositionDimension, PositionDimension),
-                PositionUIStatePresets.PositionUIState
+                GetRect(position.Coordinate)
             );
+            return clickablePosition;
+        }
+
+        public static PositionIndicator InitPositionIndicator(Position position)
+        {
+            PositionIndicator clickablePosition = new PositionIndicator
+            (
+                GetRect(position.Coordinate),
+                selectedPosition,
+                movablePosition,
+                capturablePosition
+            );
+            return clickablePosition;
+        }
+
+        public static PieceElement InitPiece(BasePiece piece)
+        {
+            PieceElement pieceElement = new PieceElement
+            (
+                GetRect(piece.StartPosition.Coordinate),
+                GetPieceImage(piece.Role, piece.Side)
+            );
+            return pieceElement;
+        }
+
+        public static ImageButtonUIState GetPieceImage(PieceRole role, PlayerSide side)
+        {
+            string sideName;
+            string roleName;
+            ImageButtonUIStateData activeUI = new ImageButtonUIStateData();
+            ImageButtonUIStateData inactiveUI = new ImageButtonUIStateData();
+            ImageButtonUIStateData pressedUI = new ImageButtonUIStateData();
+            ImageButtonUIStateData selectedUI = new ImageButtonUIStateData();
+
+            switch (side) 
+            {
+                case Black:
+                    sideName = "black";
+                    break;
+                case White:
+                    sideName = "white";
+                    break;
+                default:
+                    throw new Exception($"Invalid Side: encountered {side}");
+            }
+
+            switch (role) 
+            {
+                case Pawn:
+                    roleName = "pawn";
+                    break;
+                case Rook:
+                    roleName = "rook";
+                    break;
+                case Knight:
+                    roleName = "knight";
+                    break;
+                case Bishop:
+                    roleName = "bishop";
+                    break;
+                case Queen:
+                    roleName = "queen";
+                    break;
+                case King:
+                    roleName = "king";
+                    break;
+                default:
+                    throw new Exception($"Invalid role: encountered {role}");
+            }
+
+            activeUI.Content = new ImageContent(
+                new Bitmap($"{sideName}_{roleName}_active", $"{pieceDir}\\{sideName}_{roleName}_active.png"));
+            inactiveUI.Content = new ImageContent(
+                new Bitmap($"{sideName}_{roleName}_inactive", $"{pieceDir}\\{sideName}_{roleName}_inactive.png"));
+            pressedUI.Content = new ImageContent(
+                new Bitmap($"{sideName}_{roleName}_pressed", $"{pieceDir}\\{sideName}_{roleName}_pressed.png"));
+            selectedUI.Content = new ImageContent(
+                new Bitmap($"{sideName}_{roleName}_selected", $"{pieceDir}\\{sideName}_{roleName}_selected.png"));
+            return new ImageButtonUIState(activeUI, inactiveUI, pressedUI, selectedUI);
         }
     }
 }

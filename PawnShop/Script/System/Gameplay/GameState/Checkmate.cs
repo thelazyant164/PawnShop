@@ -8,11 +8,6 @@ namespace PawnShop.Script.System.Gameplay.GameState
 {
     public class Checkmate : GameState
     {
-        public Checkmate(PieceStateSystem gameStateSystem) : base(gameStateSystem) { }
-
-        public override void Progress()
-        {
-            base.Progress();
-        }
+        public Checkmate(GameStateSystem gameStateSystem) : base(gameStateSystem) { }
     }
 }

@@ -9,13 +9,15 @@ namespace PawnShop.Script.System.Gameplay.GameState
 {
     public abstract class GameState : State
     {
-        public GameState(PieceStateSystem gameStateSystem) : base(gameStateSystem) { }
+        public GameState(GameStateSystem gameStateSystem) : base(gameStateSystem) { }
 
-        protected PieceStateSystem GameStateSystem
+        protected GameStateSystem GameStateSystem
         {
-            get { return (PieceStateSystem)_stateMachine; }
+            get { return (GameStateSystem)stateMachine; }
         }
 
         public override void Progress() { }
+
+        public override void Terminate() { }
     }
 }

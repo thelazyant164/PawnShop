@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static PawnShop.Script.Model.Move.BaseMove;
+using static PawnShop.Script.Model.Board.Position;
+using static PawnShop.Script.Model.Board.Board;
 
 namespace PawnShop.Script.Model.Board
 {
-    public class Board
+    public sealed class Board
     {
-        public enum File
+        public enum File : int
         {
             A,
             B,
@@ -24,19 +26,20 @@ namespace PawnShop.Script.Model.Board
             H
         }
 
-        public enum Rank
+        public enum Rank : int
         {
-            f1,
-            f2,
-            f3,
-            f4,
-            f5,
-            f6,
-            f7,
-            f8
+            r1,
+            r2,
+            r3,
+            r4,
+            r5,
+            r6,
+            r7,
+            r8
         }
 
         private readonly List<Position> positions = new List<Position>();
+        public IReadOnlyList<Position> Positions => positions;
 
         public Board()
         {
@@ -53,6 +56,17 @@ namespace PawnShop.Script.Model.Board
         {
             position = positions.Find(pos => pos.File == file && pos.Rank == rank);
             return position != null;
+        }
+
+        public bool TryLocate(BasePiece piece, out Position? position)
+        {
+            position = positions.Find(pos => pos.IsOccupied && pos.OccupyingPiece!.Equals(piece));
+            return position != null;
+        }
+
+        public bool TryLocate(Coordinate coordinate, out Position? position)
+        {
+            return TryLocate(coordinate.File, coordinate.Rank, out position);
         }
 
         public void AddPiece(BasePiece newPiece)
@@ -93,14 +107,14 @@ namespace PawnShop.Script.Model.Board
             }
         }
 
-        public void Execute(object sender, OnExecuteEventArgs eventArgs)
+        public void Execute(object? sender, BaseMove move)
         {
-            throw new NotImplementedException();
+            move.Execute();
         }
 
-        public void Abort(object sender, OnAbortEventArgs eventArgs)
+        public void Abort(object? sender, BaseMove move)
         {
-            throw new NotImplementedException();
+            move.Abort();
         }
     }
 }

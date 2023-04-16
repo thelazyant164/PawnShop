@@ -40,7 +40,7 @@ namespace PawnShop.Script.Model.Piece
         /// Static event fired off everytime a new <c>BasePiece</c> is parsed from a CSV record.
         /// </summary>
         /// <remarks>
-        /// Have the <c>Board</c> subscribe to this before calling <c>PieceFactory.InitializePieces()</c>.
+        /// Have the <c>Board</c> and all <c>Players</c> subscribe to this before calling <c>PieceFactory.InitializePieces()</c>.
         /// </remarks>
         public static event StaticEvent<BasePiece>.Handler? OnPieceAdd;
 
@@ -66,7 +66,7 @@ namespace PawnShop.Script.Model.Piece
         /// Static method to create a new <c>BasePiece</c> from a <c>PieceIdentity</c>.
         /// </summary>
         /// <remarks>
-        /// Fires off the <c>PieceFactory.OnPieceAdd</c> static event, with the new piece encapsulated under <c>OnAddPieceEventArgs.Piece</c>.
+        /// Fires off the <c>PieceFactory.OnPieceAdd</c> static event.
         /// </remarks>
         /// <returns>
         /// The <c>BasePiece</c> created.
@@ -82,7 +82,7 @@ namespace PawnShop.Script.Model.Piece
         /// Static method to initialize all pieces on the board.
         /// </summary>
         /// <remarks>
-        /// Only call this after <c>PieceFactory.Path(dir, filename)</c> has been called, and <c>PieceFactory.OnPieceAdd</c> has been subscribed to by <c>Board</c>.
+        /// Only call this after <c>PieceFactory.Path(dir, filename)</c> has been called, <c>TurnSystem</c> has been initialized, and <c>PieceFactory.OnPieceAdd</c> has been subscribed to by <c>Board</c>.
         /// </remarks>
         /// <returns>
         /// A <c>List</c> of <c>BasePiece</c> created.
@@ -183,28 +183,28 @@ namespace PawnShop.Script.Model.Piece
             switch (rank)
             {
                 case "1":
-                    _rank = Rank.f1;
+                    _rank = Rank.r1;
                     break;
                 case "2":
-                    _rank = Rank.f2;
+                    _rank = Rank.r2;
                     break;
                 case "3":
-                    _rank = Rank.f3;
+                    _rank = Rank.r3;
                     break;
                 case "4":
-                    _rank = Rank.f4;
+                    _rank = Rank.r4;
                     break;
                 case "5":
-                    _rank = Rank.f5;
+                    _rank = Rank.r5;
                     break;
                 case "6":
-                    _rank = Rank.f6;
+                    _rank = Rank.r6;
                     break;
                 case "7":
-                    _rank = Rank.f7;
+                    _rank = Rank.r7;
                     break;
                 case "8":
-                    _rank = Rank.f8;
+                    _rank = Rank.r8;
                     break;
                 default:
                     throw new Exception(

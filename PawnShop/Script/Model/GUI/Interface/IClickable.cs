@@ -9,12 +9,7 @@ namespace PawnShop.Script.Model.GUI.Interface
 {
     public interface IClickable : IInteractable, IPrimitiveRect
     {
-        public class OnMouseEventArgs : EventArgs
-        {
-            public Point2D MousePosition;
-        }
-
-        public abstract event EventHandler<OnMouseEventArgs> OnClick;
+        public abstract event EventHandler OnClick;
 
         public abstract bool IsMouseDown();
     }

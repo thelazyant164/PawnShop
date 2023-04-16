@@ -13,13 +13,13 @@ using SplashKitSDK;
 
 namespace PawnShop.Script.Model.GUI.Button.Model
 {
-    public sealed class ImageButton
-        : BaseButton<ImageButtonState, ImageButtonUIState, ImageButtonUIStateData>,
+    public class ImageButton
+        : BaseButton<ImageButtonUIState, ImageButtonUIStateData>,
             IImage
     {
         public ImageContent Content
         {
-            get => UIState.GetState(state.State).Content;
+            get => UIState!.GetState(state.State).Content;
         }
 
         public ImageButton(PrimitiveRect rect, ImageButtonUIState imageButtonUI)
@@ -29,7 +29,6 @@ namespace PawnShop.Script.Model.GUI.Button.Model
         {
             if (!Visible)
                 return;
-            base.Draw();
             SplashKit.DrawBitmap(Content.Texture, Rectangle.X, Rectangle.Y);
         }
     }

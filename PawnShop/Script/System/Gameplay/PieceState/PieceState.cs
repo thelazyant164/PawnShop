@@ -13,8 +13,10 @@ namespace PawnShop.Script.System.Gameplay.PieceState
 
         protected PieceStateSystem PieceStateSystem
         {
-            get { return (PieceStateSystem)_stateMachine; }
+            get { return (PieceStateSystem)stateMachine; }
         }
+
+        public override void Terminate() { }
 
         public override void Progress() { }
     }

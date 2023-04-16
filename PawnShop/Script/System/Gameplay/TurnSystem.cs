@@ -6,24 +6,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static PawnShop.Script.Model.Player.BasePlayer;
 
 namespace PawnShop.Script.System.Gameplay
 {
-    public class TurnSystem
+    /// <summary>
+    /// Manager class to keep track of the current turn.
+    /// </summary>
+    public sealed class TurnSystem
     {
-        public class OnTurnChangeEventArgs : EventArgs
-        {
-            public BasePlayer.PlayerSide Side;
-            public BasePlayer.PlayerType Type;
-        }
+        public event EventHandler<BasePlayer>? OnTurnChange;
 
-        public event EventHandler<OnTurnChangeEventArgs> OnTurnChange;
+        /// <summary>
+        /// Get the current <c>PlayerSide</c>.
+        /// </summary>
+        public PlayerSide CurrentTurn { get; private set; }
 
-        public BasePlayer.PlayerSide CurrentTurn { get; private set; }
+        /// <summary>
+        /// Get the current <c>PlayerType</c>.
+        /// </summary>
+        public PlayerType CurrentType { get; private set; }
 
-        public BasePlayer.PlayerType CurrentType { get; private set; }
-
+        /// <summary>
+        /// Get the current <c>BasePlayer</c>.
+        /// </summary>
         public BasePlayer CurrentPlayer { get; private set; }
+
+        /// <summary>
+        /// Get the opponent <c>BasePlayer</c>.
+        /// </summary>
+        public BasePlayer Opponent { get; private set; }
 
         private readonly List<BasePlayer> activePlayers;
 
@@ -31,16 +43,16 @@ namespace PawnShop.Script.System.Gameplay
         {
             activePlayers = new List<BasePlayer>
             {
-                new BasePlayer(BasePlayer.PlayerSide.White, config.White),
-                new BasePlayer(BasePlayer.PlayerSide.Black, config.Black)
+                new BasePlayer(PlayerSide.White, config.White),
+                new BasePlayer(PlayerSide.Black, config.Black)
             };
-            OnTurnChange += (object? sender, OnTurnChangeEventArgs eventArgs) =>
+            OnTurnChange += (object? sender, BasePlayer currentPlayer) =>
             {
-                CurrentTurn = eventArgs.Side;
-                CurrentType = eventArgs.Type;
-                CurrentPlayer = GetPlayer(CurrentTurn);
+                CurrentPlayer = currentPlayer;
+                CurrentTurn = currentPlayer.Side;
+                CurrentType = currentPlayer.Type;
+                Opponent = activePlayers.Find(player => player.Side != CurrentTurn)!;
             };
-            CurrentPlayer = activePlayers[0];
         }
 
         public void Update()
@@ -51,7 +63,12 @@ namespace PawnShop.Script.System.Gameplay
             }
         }
 
-        public BasePlayer GetPlayer(BasePlayer.PlayerSide side)
+        /// <summary>
+        /// Get a player by their <c>PlayerSide</c>.
+        /// </summary>
+        /// <param name="side">The <c>PlayerSide</c> of the player to get.</param>
+        /// <returns>The <paramref name="side"/> (<value>Black</value> or <value>White</value>) player.</returns>
+        public BasePlayer GetPlayer(PlayerSide side)
         {
             BasePlayer? activePlayer = activePlayers.Find(player => player.Side == side);
             if (activePlayer != null)
@@ -60,13 +77,29 @@ namespace PawnShop.Script.System.Gameplay
             }
             else
             {
-                throw new Exception($"Cannot find player of side {side}");
+                throw new Exception($"Cannot find player of Side {side}");
             }
         }
 
-        public List<Position> GetReign(BasePlayer player)
+        /// <summary>
+        /// Starts the game.
+        /// </summary>
+        /// <remarks>To be called at the start of the game, after all pieces have been initialized.</remarks>
+        /// <param name="whiteStarts">Specifies the starting player. By default, <c>White</c> starts first.</param>
+        public void Begin(bool whiteStarts = true)
         {
-            return player.Reign;
+            OnTurnChange?.Invoke(this, whiteStarts ? activePlayers[0] : activePlayers[1]);
+            CurrentPlayer.StartTurn();
+        }
+
+        /// <summary>
+        /// Moves onto the next turn.
+        /// </summary>
+        /// <remarks>To be called before terminating the old player's turn.</remarks>
+        public void NextTurn()
+        {
+            OnTurnChange?.Invoke(this, Opponent);
+            CurrentPlayer.StartTurn();
         }
     }
 }

@@ -8,7 +8,7 @@ using PawnShop.Script.Model.GUI.Button.UIStateData;
 
 namespace PawnShop.Script.Model.GUI.Button.UIState
 {
-    public abstract class ButtonUIState<T> where T : ButtonUIStateData
+    public abstract class SpriteUIState<T> where T : ButtonUIStateData
     {
         protected virtual T ActiveState { get; set; }
 
@@ -18,7 +18,7 @@ namespace PawnShop.Script.Model.GUI.Button.UIState
 
         protected virtual T SelectedState { get; set; }
 
-        public ButtonUIState(T activeUI, T inactiveUI, T pressedUI, T selectedState)
+        public SpriteUIState(T activeUI, T inactiveUI, T pressedUI, T selectedState)
         {
             ActiveState = activeUI;
             InactiveState = inactiveUI;
@@ -35,7 +35,7 @@ namespace PawnShop.Script.Model.GUI.Button.UIState
                 case SelectionState.Active:
                     return ActiveState;
                 case SelectionState.Selected:
-                    return PressedState;
+                    return SelectedState;
                 case SelectionState.Pressed:
                     return PressedState;
                 default:

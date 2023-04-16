@@ -35,12 +35,12 @@ namespace PawnShopTest
         //public void ParsePos()
         //{
         //    Position? position;
-        //    board.TryLocate(Board.File.A, Rank.f1, out position);
-        //    Assert.That(PieceFactory.ParsePosition("a", "1"), Is.EqualTo(position!));
-        //    board.TryLocate(Board.File.H, Rank.f8, out position);
-        //    Assert.That(PieceFactory.ParsePosition("h", "8"), Is.EqualTo(position!));
-        //    Assert.Throws<Exception>(() => PieceFactory.ParsePosition("i", "1"), "Invalid data when trying to parse CSV - encountered i; expected a, b, c, d, e, f, g or h.");
-        //    Assert.Throws<Exception>(() => PieceFactory.ParsePosition("a", "9"), "Invalid data when trying to parse CSV - encountered 9; expected 1, 2, 3, 4, 5, 6, 7 or 8.");
+        //    board.TryLocate(Board.File.A, Rank.r1, out position);
+        //    Assert.That(PieceFactory.GetRect("a", "1"), Is.EqualTo(position!));
+        //    board.TryLocate(Board.File.H, Rank.r8, out position);
+        //    Assert.That(PieceFactory.GetRect("h", "8"), Is.EqualTo(position!));
+        //    Assert.Throws<Exception>(() => PieceFactory.GetRect("i", "1"), "Invalid data when trying to parse CSV - encountered i; expected a, b, c, d, e, f, g or h.");
+        //    Assert.Throws<Exception>(() => PieceFactory.GetRect("a", "9"), "Invalid data when trying to parse CSV - encountered 9; expected 1, 2, 3, 4, 5, 6, 7 or 8.");
         //}
 
         //[Test]
@@ -67,19 +67,19 @@ namespace PawnShopTest
         //public void ParsePiece()
         //{
         //    Position? position;
-        //    board.TryLocate(Board.File.A, Rank.f2, out position);
+        //    board.TryLocate(Board.File.A, Rank.r2, out position);
         //    PieceIdentity pieceId = new PieceIdentity(position!, PieceRole.Pawn, PlayerSide.White);
         //    Assert.That(PieceFactory.PieceParser("White,Pawn,a,2"), Is.EqualTo(pieceId));
 
-        //    board.TryLocate(Board.File.H, Rank.f1, out position);
+        //    board.TryLocate(Board.File.H, Rank.r1, out position);
         //    pieceId = new PieceIdentity(position!, PieceRole.Rook, PlayerSide.White);
         //    Assert.That(PieceFactory.PieceParser("White,Rook,h,1"), Is.EqualTo(pieceId));
 
-        //    board.TryLocate(Board.File.H, Rank.f7, out position);
+        //    board.TryLocate(Board.File.H, Rank.r7, out position);
         //    pieceId = new PieceIdentity(position!, PieceRole.Pawn, PlayerSide.Black);
         //    Assert.That(PieceFactory.PieceParser("Black,Pawn,h,7"), Is.EqualTo(pieceId));
 
-        //    board.TryLocate(Board.File.A, Rank.f8, out position);
+        //    board.TryLocate(Board.File.A, Rank.r8, out position);
         //    pieceId = new PieceIdentity(position!, PieceRole.Rook, PlayerSide.Black);
         //    Assert.That(PieceFactory.PieceParser("Black,Rook,a,8"), Is.EqualTo(pieceId));
         //}

@@ -14,9 +14,9 @@ namespace PawnShop.Script.Model.GUI.Interface
             public Point2D MousePosition;
         }
 
-        public abstract event EventHandler<IClickable.OnMouseEventArgs> OnMouseDown;
-        public abstract event EventHandler<OnMouseDragEventArgs> OnMouseDrag;
-        public abstract event EventHandler<IClickable.OnMouseEventArgs> OnMouseRelease;
+        public abstract event EventHandler OnMouseDown;
+        public abstract event EventHandler OnMouseDrag;
+        public abstract event EventHandler OnMouseRelease;
 
         public abstract bool IsDragging { get; }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PawnShop.Script.Model.GUI.Button.State
 {
-    public abstract class ButtonState
+    public class ButtonState
     {
         public enum SelectionState
         {
@@ -55,10 +55,10 @@ namespace PawnShop.Script.Model.GUI.Button.State
             switch (State)
             {
                 case SelectionState.Inactive
-                or SelectionState.Selected
-                or SelectionState.Pressed:
+                or SelectionState.Selected:
                     return;
-                case SelectionState.Active:
+                case SelectionState.Active 
+                or SelectionState.Pressed:
                     State = SelectionState.Selected;
                     _selectDelegate();
                     break;
