@@ -15,14 +15,14 @@ namespace PawnShop.Script.Model.Move
 
         public readonly PlayerSide Side;
         public readonly BaseMove Move;
-        public readonly DateTime date;
+        public readonly DateTime Date;
 
         public Turn(PlayerSide side, BaseMove move) 
         {
             Side = side;
             Move = move;
-            date = DateTime.Now;
-            Console.WriteLine($"{side} played {move} at {date}");
+            Date = DateTime.Now;
+            Console.WriteLine($"{side} played {move} at {Date}");
             OnPlay?.Invoke(this);
         }
     }

@@ -10,6 +10,8 @@ namespace PawnShop.Script.Model.GUI.Interface
     {
         public abstract event EventHandler OnSelect;
         public abstract event EventHandler OnDeselect;
+        public abstract event EventHandler OnActivate;
+        public abstract event EventHandler OnDeactivate;
 
         public abstract bool IsSelected { get; }
 

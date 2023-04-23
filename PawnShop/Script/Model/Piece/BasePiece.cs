@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Piece.Movement;
 using PawnShop.Script.System.Gameplay.GameState;
 using PawnShop.Script.System.Gameplay.PieceState;
 using static PawnShop.Script.Model.Player.BasePlayer;
+using static PawnShop.Script.Model.Piece.BasePiece.PieceRole;
 
 namespace PawnShop.Script.Model.Piece
 {
@@ -17,6 +20,18 @@ namespace PawnShop.Script.Model.Piece
     /// </summary>
     public sealed class BasePiece
     {
+        public static readonly IReadOnlyDictionary<PieceRole, int> Costs = new Dictionary<PieceRole, int>()
+        {
+            { Pawn, 1 },
+            { Knight, 3 },
+            { Bishop, 3 },
+            { Rook, 5 },
+            { Queen, 10 }
+        };
+
+        private static int hashCount = 0;
+        private readonly int hashCode;
+
         public struct PieceIdentity
         {
             public readonly Position StartPosition;
@@ -32,14 +47,6 @@ namespace PawnShop.Script.Model.Piece
                 StartPosition = startPosition;
                 Role = role;
                 Side = side;
-            }
-
-            public override bool Equals(object? obj)
-            {
-                if (obj is not PieceIdentity) return false;
-                return StartPosition.Equals(((PieceIdentity)obj)!.StartPosition)
-                    && Role == ((PieceIdentity)obj)!.Role
-                    && Side == ((PieceIdentity)obj)!.Side;
             }
 
             public override string ToString() => $"{Side} {Role} @ {StartPosition}";
@@ -61,6 +68,8 @@ namespace PawnShop.Script.Model.Piece
 
         public BasePiece(PieceIdentity identity)
         {
+            hashCode = hashCount;
+            hashCount++;
             this.identity = identity;
             state = new PieceStateSystem(this);
             movement = new PieceMovementSystem(this);
@@ -74,12 +83,14 @@ namespace PawnShop.Script.Model.Piece
 
         public Position StartPosition => identity.StartPosition;
 
+        public bool Upgradeable => movement.Upgradeable;
+
         private bool responsive = false;
 
-        public event EventHandler<Position> OnMove;
-        public event EventHandler<BasePiece> OnSelect;
-        public event EventHandler<BasePiece> OnCapture;
-        public event EventHandler<BasePiece> OnRestore;
+        public event EventHandler<Position>? OnMove;
+        public event EventHandler<BasePiece>? OnSelect;
+        public event EventHandler<BasePiece>? OnCapture;
+        public event EventHandler<BasePiece>? OnRestore;
 
         /// <summary>
         /// Method to invoke piece selection programmatically, to be used by AI controllers.
@@ -100,34 +111,17 @@ namespace PawnShop.Script.Model.Piece
         /// Callback delegate to respond to user events.
         /// </summary>
         /// <remarks>Will only delegate the task to <c>InvokeOnSelect</c> if the piece is <c>responsive</c>.</remarks>
-        public void OnClick(object? sender, EventArgs e)
+        public void OnClick()
         {
             if (responsive)
             {
-                InvokeOnSelect(sender, e);
-            }
-            else
-            {
-                //Console.WriteLine($"Clicked on {this}, which is inactive");
+                InvokeOnSelect(this, EventArgs.Empty);
             }
         }
 
-        public override bool Equals(object? obj)
-        {
-            if (obj is not BasePiece) return false;
-            return identity.Equals((obj as BasePiece)!.identity);
-        }
+        public override string ToString() => identity.ToString();
 
-        public override string ToString() => Name;
-
-        public string Name => identity.Role != PieceRole.Pawn
-            ? $"{identity.Side} {identity.Role}"
-            : $"{identity.StartPosition} {identity.Side} {identity.Role}";
-
-        public void Progress()
-        {
-            state.Update();
-        }
+        public void Progress() => state.Update();
 
         public IReadOnlySet<Position> GetAllMoves() => movement.GetAllMoves();
 
@@ -150,5 +144,9 @@ namespace PawnShop.Script.Model.Piece
         }
 
         public bool IsEndangered() => movement.IsEndangered();
+
+        public IReadOnlySet<Position> GetReign() => movement.GetReign();
+
+        public override int GetHashCode() => hashCode;
     }
 }

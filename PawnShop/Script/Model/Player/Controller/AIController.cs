@@ -8,6 +8,6 @@ using static PawnShop.Script.Model.Player.BasePlayer;
 namespace PawnShop.Script.Model.Player.Controller
 {
     public class AIController : PlayerController {
-        public AIController(PlayerSide side) : base(side) { }
+        public AIController(BasePlayer player) : base(player) { }
     }
 }

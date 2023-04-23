@@ -10,6 +10,6 @@ namespace PawnShop.Script.Model.Player.Controller
 {
     public class ManualController : PlayerController 
     { 
-        public ManualController(PlayerSide side) : base(side) { }
+        public ManualController(BasePlayer player) : base(player) { }
     }
 }

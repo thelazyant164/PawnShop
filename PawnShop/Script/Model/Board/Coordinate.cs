@@ -91,12 +91,5 @@
         {
             return TryNavigate(root, SouthWest, out target, step);
         }
-
-        public static int GetDistance(Position root, Position offset)
-        {
-            int fileOffset = Math.Abs((int)offset.File - (int)root.File);
-            int rankOffset = Math.Abs((int)root.Rank - (int)offset.Rank);
-            return Math.Max(fileOffset, rankOffset);
-        }
     }
 }

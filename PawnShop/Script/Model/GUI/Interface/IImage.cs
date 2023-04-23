@@ -7,7 +7,7 @@ using SplashKitSDK;
 
 namespace PawnShop.Script.Model.GUI.Interface
 {
-    public interface IImage : IPrimitiveRect, IVisible
+    public interface IImage : IVisible
     {
         public struct ImageContent
         {

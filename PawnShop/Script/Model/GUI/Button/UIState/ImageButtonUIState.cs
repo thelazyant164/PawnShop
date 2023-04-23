@@ -7,7 +7,7 @@ using PawnShop.Script.Model.GUI.Button.UIStateData;
 
 namespace PawnShop.Script.Model.GUI.Button.UIState
 {
-    public sealed class ImageButtonUIState : SpriteUIState<ImageButtonUIStateData>
+    public sealed class ImageButtonUIState : ButtonUIState<ImageButtonUIStateData>
     {
         public ImageButtonUIState(
             ImageButtonUIStateData activeUI,

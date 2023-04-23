@@ -3,44 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static PawnShop.Script.Model.GUI.Sprite.State.SpriteState;
 using PawnShop.Script.Model.GUI.Sprite.UIStateData;
+using System.Reflection.Metadata;
 
 namespace PawnShop.Script.Model.GUI.Sprite.UIState
 {
     public abstract class SpriteUIState<T, U> where T : SpriteUIStateData<U>
     {
-        protected virtual T ActiveState { get; set; }
+        private static readonly int animationFramerate = 144;
 
-        protected virtual T InactiveState { get; set; }
+        private T UIStateData { get; }
+        private int counter = 0;
+        private int frame => counter / animationFramerate;
 
-        private int currentFrame = 0;
-
-        public SpriteUIState(T activeUI, T inactiveUI)
+        public virtual U Content
         {
-            ActiveState = activeUI;
-            InactiveState = inactiveUI;
-        }
-
-        protected virtual T GetState(SelectionState state)
-        {
-            switch (state)
+            get
             {
-                case SelectionState.Inactive:
-                    return InactiveState;
-                case SelectionState.Active:
-                    return ActiveState;
-                default:
-                    throw new Exception("Illegal button selection state");
+                counter++;
+                if (frame >= UIStateData.Content.Count) counter = 0;
+                return UIStateData.Content[frame];
             }
         }
 
-        public virtual U GetContent(SelectionState state)
+        public SpriteUIState(T UIStateData)
         {
-            IReadOnlyList<U> content = GetState(state).Content;
-            currentFrame++;
-            if (currentFrame > content.Count) currentFrame = 0;
-            return content[currentFrame];
+            this.UIStateData = UIStateData;
         }
     }
 }

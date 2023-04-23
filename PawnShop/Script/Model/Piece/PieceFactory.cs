@@ -82,7 +82,7 @@ namespace PawnShop.Script.Model.Piece
         /// Static method to initialize all pieces on the board.
         /// </summary>
         /// <remarks>
-        /// Only call this after <c>PieceFactory.Path(dir, filename)</c> has been called, <c>TurnSystem</c> has been initialized, and <c>PieceFactory.OnPieceAdd</c> has been subscribed to by <c>Board</c>.
+        /// Only call this after <c>PieceFactory.Path(dir, filename)</c> has been called, <c>PlayerManager</c> has been initialized, and <c>PieceFactory.OnPieceAdd</c> has been subscribed to by <c>Board</c>.
         /// </remarks>
         /// <returns>
         /// A <c>List</c> of <c>BasePiece</c> created.

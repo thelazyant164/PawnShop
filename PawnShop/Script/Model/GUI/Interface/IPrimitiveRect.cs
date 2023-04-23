@@ -32,6 +32,9 @@ namespace PawnShop.Script.Model.GUI.Interface
                 Origin = new Position(x, y);
                 Dimension = new Dimension(width, height);
             }
+
+            public static readonly PrimitiveRect FullScreen 
+                = new PrimitiveRect(Position.Origin, new Dimension(1280, 720));
         }
 
         public abstract float Width { get; }

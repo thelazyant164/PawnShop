@@ -1,4 +1,5 @@
 ﻿using PawnShop.Script.Model.GUI.Interface;
+using static PawnShop.Script.Model.GUI.Interface.IPrimitive;
 using SplashKitSDK;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,14 @@ namespace PawnShop.Script.Model.GUI.Component
         public virtual Point2D Origin => new Point2D { X = X, Y = Y };
 
         public virtual bool Visible { get; protected set; } = false;
+
+        public VisibleComponent(Position position)
+        {
+            X = position.X;
+            Y = position.Y;
+        }
+
+        public VisibleComponent() : this(Position.Origin) { }
 
         public virtual void Show()
         {

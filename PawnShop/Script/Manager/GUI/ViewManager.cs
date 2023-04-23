@@ -9,7 +9,6 @@ using PawnShop.Script.Model.GUI.View;
 using static PawnShop.Script.Manager.Gameplay.GameManager;
 using static PawnShop.Script.Model.Player.BasePlayer.PlayerType;
 using static PawnShop.Script.Model.Player.BasePlayer.PlayerSide;
-using PawnShop.Script.System.Gameplay;
 using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Player;
@@ -37,7 +36,9 @@ namespace PawnShop.Script.Manager.GUI
         private ViewManager() { }
         private PlayerViewManager black;
         private PlayerViewManager white;
-        private TurnSystem turnSystem;
+        public PlayerViewManager PlayerView 
+            => playerManager.CurrentTurn == Black ? black : white;
+        private PlayerManager playerManager;
 
         /// <summary>
         /// Method to initialize the game.
@@ -45,11 +46,26 @@ namespace PawnShop.Script.Manager.GUI
         /// <param name="config">Configurations of the game being started.</param>
         public void Init(GameConfig config)
         {
-            turnSystem = GameManager.Instance.TurnSystem;
-            BasePlayer blackPlayer = turnSystem.GetPlayer(Black);
-            BasePlayer whitePlayer = turnSystem.GetPlayer(White);
+            playerManager = GameManager.Instance.PlayerManager;
+            BasePlayer blackPlayer = playerManager.GetPlayer(Black);
+            BasePlayer whitePlayer = playerManager.GetPlayer(White);
             black = new PlayerViewManager(blackPlayer);
             white = new PlayerViewManager(whitePlayer);
+            playerManager.OnTurnChange += OnTurnChange;
+        }
+
+        private void OnTurnChange(object? sender, BasePlayer player)
+        {
+            if (player.Side == White)
+            {
+                black.EndTurn();
+                white.StartTurn();
+            }
+            else
+            {
+                white.EndTurn();
+                black.StartTurn();
+            }
         }
 
         /// <summary>
@@ -60,15 +76,8 @@ namespace PawnShop.Script.Manager.GUI
         /// </remarks>
         public void Draw()
         {
-            if (turnSystem == null) throw new Exception("Cannot get turn system");
-            if (turnSystem.CurrentTurn == White)
-            {
-                white.Draw();
-            }
-            else
-            {
-                black.Draw();
-            }
+            if (playerManager == null) throw new Exception("Cannot get turn system");
+            PlayerView.Draw();
         }
 
         /// <summary>
@@ -79,7 +88,7 @@ namespace PawnShop.Script.Manager.GUI
         /// </remarks>
         public void Update()
         {
-            if (turnSystem == null) throw new Exception("Cannot get turn system");
+            if (playerManager == null) throw new Exception("Cannot get turn system");
             white.Update();
             black.Update();
         }

@@ -150,10 +150,6 @@ namespace PawnShop.Script.Model.GUI.View
         {
             string sideName;
             string roleName;
-            ImageButtonUIStateData activeUI = new ImageButtonUIStateData();
-            ImageButtonUIStateData inactiveUI = new ImageButtonUIStateData();
-            ImageButtonUIStateData pressedUI = new ImageButtonUIStateData();
-            ImageButtonUIStateData selectedUI = new ImageButtonUIStateData();
 
             switch (side) 
             {
@@ -164,7 +160,7 @@ namespace PawnShop.Script.Model.GUI.View
                     sideName = "white";
                     break;
                 default:
-                    throw new Exception($"Invalid Side: encountered {side}");
+                    throw new Exception($"Invalid side: encountered {side}");
             }
 
             switch (role) 
@@ -191,14 +187,14 @@ namespace PawnShop.Script.Model.GUI.View
                     throw new Exception($"Invalid role: encountered {role}");
             }
 
-            activeUI.Content = new ImageContent(
-                new Bitmap($"{sideName}_{roleName}_active", $"{pieceDir}\\{sideName}_{roleName}_active.png"));
-            inactiveUI.Content = new ImageContent(
-                new Bitmap($"{sideName}_{roleName}_inactive", $"{pieceDir}\\{sideName}_{roleName}_inactive.png"));
-            pressedUI.Content = new ImageContent(
-                new Bitmap($"{sideName}_{roleName}_pressed", $"{pieceDir}\\{sideName}_{roleName}_pressed.png"));
-            selectedUI.Content = new ImageContent(
-                new Bitmap($"{sideName}_{roleName}_selected", $"{pieceDir}\\{sideName}_{roleName}_selected.png"));
+            ImageButtonUIStateData activeUI = new ImageButtonUIStateData(new ImageContent(
+                new Bitmap($"{sideName}_{roleName}_active", $"{pieceDir}\\{sideName}_{roleName}_active.png")));
+            ImageButtonUIStateData inactiveUI = new ImageButtonUIStateData(new ImageContent(
+                new Bitmap($"{sideName}_{roleName}_inactive", $"{pieceDir}\\{sideName}_{roleName}_inactive.png")));
+            ImageButtonUIStateData pressedUI = new ImageButtonUIStateData(new ImageContent(
+                new Bitmap($"{sideName}_{roleName}_pressed", $"{pieceDir}\\{sideName}_{roleName}_pressed.png")));
+            ImageButtonUIStateData selectedUI = new ImageButtonUIStateData(new ImageContent(
+                new Bitmap($"{sideName}_{roleName}_selected", $"{pieceDir}\\{sideName}_{roleName}_selected.png")));
             return new ImageButtonUIState(activeUI, inactiveUI, pressedUI, selectedUI);
         }
     }

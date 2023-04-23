@@ -15,7 +15,7 @@ using PawnShop.Script.Model.Piece;
 
 namespace PawnShop.Script.Model.GUI.GameElement
 {
-    public sealed class PieceElement : ImageButton, IMovable
+    public sealed class PieceElement : ImageButton
     {
         private bool captured = false;
 
@@ -38,7 +38,7 @@ namespace PawnShop.Script.Model.GUI.GameElement
         public void OnMove(object? sender, Board.Position position) 
             => OnMove(sender, BoardViewFactory.GetPosition(position.Coordinate));
 
-        public void OnMove(object? sender, IPrimitive.Position position)
+        private void OnMove(object? sender, IPrimitive.Position position)
         {
             X = position.X;
             Y = position.Y;

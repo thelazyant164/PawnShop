@@ -10,20 +10,24 @@ namespace PawnShop.Script.System.Gameplay.PieceState
     {
         public InactivePiece(PieceStateSystem pieceStateSystem) : base(pieceStateSystem) 
         {
-            
         }
 
-        public override void Terminate()
+        public override void Start()
         {
-            
+            piece.ToggleResponseToClick(false);
         }
 
         public override void Progress()
         {
-            if (PieceStateSystem.TurnSystem.CurrentTurn == PieceStateSystem.Piece.Side)
+            if (PieceStateSystem.PlayerManager.CurrentTurn == PieceStateSystem.Piece.Side)
             {
                 PieceStateSystem.SetPieceState(new ActivePiece(PieceStateSystem));
             }
+        }
+
+        public override void Terminate()
+        {
+            piece.ToggleResponseToClick(true);
         }
     }
 }

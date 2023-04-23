@@ -6,35 +6,35 @@ using System.Threading.Tasks;
 using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Piece;
-using PawnShop.Script.System.Gameplay.PieceState;
+using PawnShop.Script.Model.Player;
 using static PawnShop.Script.Model.Piece.BasePiece;
+using static PawnShop.Script.Model.Piece.BasePiece.PieceRole;
 
 namespace PawnShop.Script.Model.Move
 {
     public sealed class Buy : BaseMove
     {
-        private readonly PieceIdentity pieceID;
-        private BasePiece? piece;
+        public readonly static int Cost = Costs[Pawn];
+        private readonly BasePiece piece;
 
         public Buy(PieceIdentity pieceID) 
         {
-            this.pieceID = pieceID;
+            piece = PieceFactory.CreatePiece(pieceID);
+            piece.Capture();
         }
-
-        private void PieceFactory_OnPieceAdd(BasePiece piece) => this.piece = piece;
 
         public override void Execute()
         {
-            PieceFactory.OnPieceAdd += PieceFactory_OnPieceAdd;
-            PieceFactory.CreatePiece(pieceID);
-            PieceFactory.OnPieceAdd -= PieceFactory_OnPieceAdd;
+            player.Spend(Cost);
+            piece.Restore();
         }
 
         public override void Abort()
         {
-            piece!.Capture();
+            player.Gain(Cost);
+            piece.Capture();
         }
 
-        public override string ToString() => $"Created {piece} at {pieceID.StartPosition}";
+        public override string ToString() => $"Created {piece}";
     }
 }

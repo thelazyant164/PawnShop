@@ -27,7 +27,7 @@ namespace PawnShop.Script.Model.GUI.GameElement
             this.capturableUI = capturableUI;
         }
 
-        public void OnHighlight(object? sender, HighlightType type)
+        public void ToggleHighlight(HighlightType type)
         {
             Visible = true;
             switch (type) 

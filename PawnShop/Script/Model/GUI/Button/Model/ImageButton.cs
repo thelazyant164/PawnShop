@@ -17,10 +17,7 @@ namespace PawnShop.Script.Model.GUI.Button.Model
         : BaseButton<ImageButtonUIState, ImageButtonUIStateData>,
             IImage
     {
-        public ImageContent Content
-        {
-            get => UIState!.GetState(state.State).Content;
-        }
+        public virtual ImageContent Content => UIState!.GetState(state.State).Content;
 
         public ImageButton(PrimitiveRect rect, ImageButtonUIState imageButtonUI)
             : base(rect, imageButtonUI) { }

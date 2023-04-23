@@ -8,50 +8,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static PawnShop.Script.Model.Player.BasePlayer;
+using static PawnShop.Script.Model.Piece.BasePiece;
 
 namespace PawnShop.Script.Model.Player.Controller
 {
     public abstract class PlayerController
     {
+        private PlayerSide Side { get; }
+        private bool IsPlaying 
+            => GameManager.Instance.PlayerManager.CurrentTurn == Side;
+
         public event EventHandler<BasePiece>? OnSelectPiece;
         public event EventHandler<Position>? OnSelectPosition;
+        public event EventHandler<bool>? OnToggleBuyMode;
+        public event EventHandler<bool>? OnToggleUpgradeMode;
+        public event EventHandler<PieceRole>? OnSelectUpgradeRole;
 
-        private PlayerSide side;
-
-        public PlayerController(PlayerSide side)
+        public PlayerController(BasePlayer player)
         {
-            this.side = side;
-            Board.Board board = GameManager.Instance.Board;
-            foreach (Position position in board.Positions)
+            Side = player.Side;
+            player.OnToggleBuyMode += ToggleBuyMode;
+            player.OnToggleUpgradeMode += ToggleUpgradeMode;
+            player.OnSelectUpgradeRole += SelectUpgradeRole;
+            foreach (Position position in GameManager.Instance.Board.Positions)
             {
-                position.OnSelect += Position_OnSelectPosition;
+                position.OnSelect += InvokeOnSelectPosition;
             }
         }
 
-        public void Register(BasePiece piece)
+        public void Register(BasePiece piece) => piece.OnSelect += InvokeOnSelectPiece;
+
+        public void Unregister(BasePiece piece) => piece.OnSelect -= InvokeOnSelectPiece;
+
+        private void InvokeOnSelectPiece(object? sender, BasePiece piece) 
+            => OnSelectPiece?.Invoke(sender, piece); 
+
+        private void InvokeOnSelectPosition(object? sender, Position position)
         {
-            piece.OnSelect += BasePiece_OnSelectPiece;
+            if (IsPlaying) OnSelectPosition?.Invoke(sender, position);
         }
 
-        public void Unregister(BasePiece piece)
-        {
-            piece.OnSelect -= BasePiece_OnSelectPiece;
-        }
+        private void ToggleBuyMode(object? sender, bool enable) 
+            => OnToggleBuyMode?.Invoke(sender, enable);
 
-        private void BasePiece_OnSelectPiece(object? sender, BasePiece piece) 
-        { 
-            if (GameManager.Instance.TurnSystem.CurrentTurn == side) 
-            {
-                OnSelectPiece?.Invoke(sender, piece); 
-            }
-        }
+        private void ToggleUpgradeMode(object? sender, bool enable) 
+            => OnToggleUpgradeMode?.Invoke(sender, enable);
 
-        private void Position_OnSelectPosition(object? sender, Position position)
-        { 
-            if (GameManager.Instance.TurnSystem.CurrentTurn == side)
-            {
-                OnSelectPosition?.Invoke(sender, position);
-            }
-        }
+        private void SelectUpgradeRole(object? sender, PieceRole role) 
+            => OnSelectUpgradeRole?.Invoke(sender, role);
     }
 }

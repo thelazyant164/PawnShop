@@ -16,6 +16,8 @@ namespace PawnShop.Script.System.Gameplay.GameState
             get { return (GameStateSystem)stateMachine; }
         }
 
+        public override void Start() { }
+
         public override void Progress() { }
 
         public override void Terminate() { }

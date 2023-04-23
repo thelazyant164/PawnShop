@@ -33,6 +33,7 @@ namespace PawnShop
                 viewManager.Update();
                 viewManager.Draw();
                 SplashKit.RefreshScreen();
+                SplashKit.ClearScreen();
             }
             while (!window.CloseRequested);
         }

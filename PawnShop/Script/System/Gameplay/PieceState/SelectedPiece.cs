@@ -1,4 +1,5 @@
 ﻿using PawnShop.Script.Manager.Gameplay;
+using PawnShop.Script.Manager.GUI;
 using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Piece;
 using System;
@@ -7,28 +8,48 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static PawnShop.Script.Model.Board.Position.HighlightType;
+using PawnShop.Script.Utility;
+using PawnShop.Script.Model.Player;
+using PawnShop.Script.System.Gameplay.PlayerState;
+using PawnShop.Script.Model.Move;
+using System.Numerics;
 
 namespace PawnShop.Script.System.Gameplay.PieceState
 {
     public sealed class SelectedPiece : PieceState
     {
-        private readonly BasePiece selectedPiece;
+        public static event EventHandler? OnEnableUpgradeMode;
+        public static event EventHandler? OnDisableUpgradeMode;
+
+        private BasePlayer player => GameManager.Instance.PlayerManager.GetPlayer(piece.Side);
+        protected override BasePiece selectedPiece => base.selectedPiece!;
         private readonly Position currentPosition;
         private readonly HashSet<Position>? highlightedPositions;
+        private bool upgradeMode => PieceStateSystem.Cache.UpgradeMode;
 
         public SelectedPiece(PieceStateSystem pieceStateSystem) : base(pieceStateSystem) 
         {
-            selectedPiece = PieceStateSystem.Cache.SelectedPiece!;
             GameManager.Instance.Board.TryLocate(PieceStateSystem.Piece, out Position? currentPos);
             currentPosition = currentPos!;
-
-            currentPosition.InvokeOnHighlight(this, Selected);
             highlightedPositions = selectedPiece.GetAllMoves() as HashSet<Position>;
+        }
+
+        public override void Start()
+        {
+            currentPosition.InvokeOnHighlight(this, Selected);
+            if (selectedPiece.Upgradeable && player.Currency >= Upgrade.MinCost)
+            {
+                OnEnableUpgradeMode?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                OnDisableUpgradeMode?.Invoke(this, EventArgs.Empty);
+            }
             if (highlightedPositions == null) return;
             foreach (Position position in highlightedPositions)
             {
                 position.ToggleResponseToClick(true);
-                if (position.IsOccupied) 
+                if (position.IsOccupied)
                 {
                     position.InvokeOnHighlight(selectedPiece, Capturable);
                 }
@@ -36,6 +57,22 @@ namespace PawnShop.Script.System.Gameplay.PieceState
                 {
                     position.InvokeOnHighlight(selectedPiece, Movable);
                 }
+            }
+        }
+
+        public override void Progress()
+        {
+            if (!PieceStateSystem.Piece.Equals(selectedPiece))
+            {
+                PieceStateSystem.SetPieceState(new ActivePiece(PieceStateSystem));
+            }
+            if (PieceStateSystem.PlayerManager.CurrentTurn != piece.Side) 
+            {
+                PieceStateSystem.SetPieceState(new InactivePiece(PieceStateSystem));
+            }
+            if (upgradeMode && piece.Upgradeable)
+            {
+                PieceStateSystem.SetPieceState(new UpgradingPiece(PieceStateSystem));
             }
         }
 
@@ -48,17 +85,9 @@ namespace PawnShop.Script.System.Gameplay.PieceState
                 position.ToggleResponseToClick(false);
                 position.InvokeOnHighlight(selectedPiece, None);
             }
-        }
-
-        public override void Progress()
-        {
-            if (!PieceStateSystem.Piece.Equals(PieceStateSystem.Cache.SelectedPiece))
+            if (!upgradeMode)
             {
-                PieceStateSystem.SetPieceState(new ActivePiece(PieceStateSystem));
-            }
-            if (PieceStateSystem.TurnSystem.CurrentTurn != PieceStateSystem.Piece.Side) 
-            {
-                PieceStateSystem.SetPieceState(new InactivePiece(PieceStateSystem));
+                OnDisableUpgradeMode?.Invoke(this, EventArgs.Empty);
             }
         }
     }

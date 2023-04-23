@@ -11,6 +11,8 @@ namespace PawnShop.Script.Model.Player
 {
     public class PlayerInfo
     {
+        public int Currency { get; private set; } = 0;
+
         public PlayerSide Side { get; private set; }
 
         public PlayerType Type { get; private set; }
@@ -32,6 +34,8 @@ namespace PawnShop.Script.Model.Player
                 return result;
             }
         }
+
+        public bool HasValidMoves => Pieces.Any(piece => piece.GetAllMoves().Any());
 
         public PlayerInfo(PlayerSide side, PlayerType type)
         {
@@ -56,5 +60,9 @@ namespace PawnShop.Script.Model.Player
                 piece.Progress();
             }
         }
+
+        public void Spend(int coin) => Currency -= coin;
+
+        public void Gain(int coin) => Currency += coin;
     }
 }

@@ -10,7 +10,7 @@ using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
 
 namespace PawnShop.Script.Model.GUI.Button.Model
 {
-    public sealed class InvisibleButton : BaseButton<SpriteUIState<ButtonUIStateData>, ButtonUIStateData>
+    public sealed class InvisibleButton : BaseButton<ButtonUIState<ButtonUIStateData>, ButtonUIStateData>
     {
         public InvisibleButton(PrimitiveRect rect)
             : base(rect) { }

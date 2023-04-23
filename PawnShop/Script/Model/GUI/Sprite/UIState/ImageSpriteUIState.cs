@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static PawnShop.Script.Model.GUI.Sprite.State.SpriteState;
 using PawnShop.Script.Model.GUI.Sprite.UIStateData;
 using PawnShop.Script.Model.GUI.Interface;
+using static PawnShop.Script.Model.GUI.Interface.IImage;
 
 namespace PawnShop.Script.Model.GUI.Sprite.UIState
 {
-    public sealed class ImageSpriteUIState : SpriteUIState<ImageSpriteUIStateData, IImage>
+    public sealed class ImageSpriteUIState : SpriteUIState<ImageSpriteUIStateData, ImageContent>
     {
-        public ImageSpriteUIState(ImageSpriteUIStateData activeUI, ImageSpriteUIStateData inactiveUI) : base(activeUI, inactiveUI) { }
+        public ImageSpriteUIState(ImageSpriteUIStateData UIStateData) : base(UIStateData) { }
     }
 }
