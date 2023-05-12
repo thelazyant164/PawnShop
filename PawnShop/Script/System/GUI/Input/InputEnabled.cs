@@ -41,15 +41,23 @@ namespace PawnShop.Script.System.GUI.Input
 
         public override void TogglePositionSelect(Position position) => position.OnClick();
 
-        public override void ToggleIndicatorHighlight(PositionIndicator indicator, HighlightType type) 
+        public override void ToggleIndicatorHighlight(PositionIndicator indicator, HighlightType type)
             => indicator.ToggleHighlight(type);
 
         public override void TogglePieceSelect(BasePiece piece) => piece.OnClick();
 
         public override void SelectUpgradeRole(PieceRole role) => Player.SelectUpgradeRole(role);
 
-        public override void Undo() => GameManager.Instance.History.Abort();
+        public override void Undo() 
+        {
+            GameManager.Instance.History.Abort();
+            GameManager.Instance.CoinManager.Abort();
+        }
 
-        public override void Redo() => GameManager.Instance.History.Execute();
+        public override void Redo() 
+        {
+            GameManager.Instance.CoinManager.Execute();
+            GameManager.Instance.History.Execute();
+        }
     }
 }

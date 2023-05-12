@@ -42,22 +42,22 @@ namespace PawnShop.Script.Model.Move
         {
             if (coin != null)
             {
-                coin.InvokeOnCollect(this, EventArgs.Empty);
+                coin.Collect();
                 player.Gain(coin.Value);
             }
             capturedPiece.Capture();
-            player.Gain(Costs[capturedPiece.Role]);
+            player.Gain(capturedPiece.Role == Pawn ? Costs[capturedPiece.Role] : Costs[capturedPiece.Role] + 1);
             piece.MoveTo(target);
         }
 
         public override void Abort()
         {
             piece.MoveTo(current);
-            player.Spend(Costs[capturedPiece.Role]);
+            player.Spend(capturedPiece.Role == Pawn ? Costs[capturedPiece.Role] : Costs[capturedPiece.Role] + 1);
             capturedPiece.Restore();
             if (coin != null)
             {
-                coin.InvokeOnRestore(this, EventArgs.Empty);
+                coin.Restore();
                 player.Spend(coin.Value);
             }
         }

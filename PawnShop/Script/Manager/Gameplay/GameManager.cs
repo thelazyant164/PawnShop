@@ -35,6 +35,8 @@ namespace PawnShop.Script.Manager.Gameplay
             History = new History();
             History.OnExecute += Board.Execute;
             History.OnAbort += Board.Abort;
+            CoinManager.History.OnExecute += Board.Execute;
+            CoinManager.History.OnAbort += Board.Abort;
         }
 
         public struct GameConfig
@@ -49,7 +51,7 @@ namespace PawnShop.Script.Manager.Gameplay
         public PlayerManager PlayerManager { get; private set; }
         public Board Board { get; private set; }
         public History History { get; private set; }
-        public CoinManager CoinManager { get; private set; }
+        public CoinManager CoinManager { get; private set; } = new CoinManager();
 
         /// <summary>
         /// Method to initialize the game.
@@ -61,7 +63,6 @@ namespace PawnShop.Script.Manager.Gameplay
             PieceFactory.Path("D:\\Coding\\Projects\\Git\\PawnShop\\PawnShop\\Data\\CSV\\Piece\\", "InitBoard_PawnShop.csv");
             PieceFactory.OnPieceAdd += Board.AddPiece;
             PlayerManager = new PlayerManager(config);
-            CoinManager = new CoinManager(PlayerManager);
             gameStateSystem.Init(PlayerManager);
             PieceFactory.InitializePieces();
             gameStateSystem.SetGameState(new GameInProgress(gameStateSystem));
@@ -90,7 +91,7 @@ namespace PawnShop.Script.Manager.Gameplay
             _turnBuffer = null;
             gameStateSystem.Update();
             PlayerManager!.Update();
-            CoinManager.Update();
+            CoinManager.Progress();
             History.Progress();
         }
     }

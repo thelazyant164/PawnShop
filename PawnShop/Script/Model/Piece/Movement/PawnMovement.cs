@@ -25,9 +25,9 @@ namespace PawnShop.Script.Model.Piece.Movement
             Position? movable = piece.Side == White 
                 ? BoardNavigator.NavigateNorth(currentPos, 1).FirstOrDefault() 
                 : BoardNavigator.NavigateSouth(currentPos, 1).FirstOrDefault();
-            if (movable?.IsOccupied ?? false)
+            if (!movable?.IsOccupied ?? false)
             {
-                result.Add(movable);
+                result.Add(movable!);
             }
             return result.Where(pos => BoardNavigator.IsMoveValid(piece, pos)).ToHashSet();
         }

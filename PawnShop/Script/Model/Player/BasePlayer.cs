@@ -70,7 +70,7 @@ namespace PawnShop.Script.Model.Player
         }
 
         /// <summary>
-        /// Method to invoke coin count update programmatically.
+        /// Method to invoke coin1 count update programmatically.
         /// </summary>
         /// <remarks>To be called on begin of turn.</remarks>
         public void InvokeOnCoinUpdate() => OnCoinUpdate?.Invoke(this, Currency);

@@ -15,6 +15,7 @@ namespace PawnShop.Script.Manager.Gameplay
     public sealed class PlayerManager
     {
         public event EventHandler<BasePlayer>? OnTurnChange;
+        public static event EventHandler OnStartGame;
 
         /// <summary>
         /// Get the current <c>PlayerSide</c>.
@@ -78,6 +79,7 @@ namespace PawnShop.Script.Manager.Gameplay
         {
             OnTurnChange?.Invoke(this, whiteStarts ? activePlayers[0] : activePlayers[1]);
             CurrentPlayer.StartTurn();
+            OnStartGame?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

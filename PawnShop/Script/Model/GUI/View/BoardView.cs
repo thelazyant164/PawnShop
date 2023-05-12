@@ -54,6 +54,7 @@ namespace PawnShop.Script.Model.GUI.View
             CoinSprite coinSprite = new CoinSprite(coin.SpawnPosition);
             coin.OnCollect += coinSprite.OnCollect;
             coin.OnRestore += coinSprite.OnRestore;
+            coin.OnExpire += coinSprite.OnCollect;
             coinSprite.Show();
             Visibles.Add(coinSprite);
         }

@@ -24,7 +24,17 @@ namespace PawnShop.Script.Model.GUI.Interface
             { 7, new Bitmap("7", $"{rootDir}\\Number\\7.png") },
             { 8, new Bitmap("8", $"{rootDir}\\Number\\8.png") },
             { 9, new Bitmap("9", $"{rootDir}\\Number\\9.png") },
-            { 10, new Bitmap("10", $"{rootDir}\\Number\\10.png") }
+            { 10, new Bitmap("10", $"{rootDir}\\Number\\10.png") },
+            { 11, new Bitmap("11", $"{rootDir}\\Number\\11.png") },
+            { 12, new Bitmap("12", $"{rootDir}\\Number\\12.png") },
+            { 13, new Bitmap("13", $"{rootDir}\\Number\\13.png") },
+            { 14, new Bitmap("14", $"{rootDir}\\Number\\14.png") },
+            { 15, new Bitmap("15", $"{rootDir}\\Number\\15.png") },
+            { 16, new Bitmap("16", $"{rootDir}\\Number\\16.png") },
+            { 17, new Bitmap("17", $"{rootDir}\\Number\\17.png") },
+            { 18, new Bitmap("18", $"{rootDir}\\Number\\18.png") },
+            { 19, new Bitmap("19", $"{rootDir}\\Number\\19.png") },
+            { 20, new Bitmap("20", $"{rootDir}\\Number\\20.png") }
         };
 
         private static readonly Dictionary<string, Bitmap> texts = new Dictionary<string, Bitmap>()

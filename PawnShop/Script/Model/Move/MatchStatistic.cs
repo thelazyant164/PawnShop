@@ -39,7 +39,7 @@ namespace PawnShop.Script.Model.Move
                 }
                 else if (t.Move is Capture)
                 {
-                    CoinCollected += (t.Move as Move)!.Coin != null ? 1 : 0;
+                    CoinCollected += (t.Move as Capture)!.Coin != null ? 1 : 0;
                     PieceCaptured++;
                 }
                 else if (t.Move is Buy)

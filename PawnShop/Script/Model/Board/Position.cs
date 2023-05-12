@@ -110,15 +110,25 @@ namespace PawnShop.Script.Model.Board
             return IsOccupied && OccupyingPiece?.Side == player.Side;
         }
 
-        public void OnCollectCoin(object? sender, Coin.Coin coin)
+        /// <summary>
+        /// Callback delegate to remove a <c>Coin</c> from a <c>Position</c>.
+        /// </summary>
+        /// <param name="coin">The <c>Coin</c> to remove.</param>
+        /// <exception cref="Exception">Will throw an exception if tried to remove non-existent <c>Coin</c> at <c>Position</c>.</exception>
+        public void RemoveCoin(object? sender, Coin.Coin coin)
         {
-            if (Coin != coin) throw new Exception($"Tried to collect {coin} from {this}");
+            if (Coin != coin) throw new Exception($"Tried to collect {coin} from {this}, which doesn't have any coin.");
             Coin = null;
         }
 
-        public void OnAddCoin(object? sender, Coin.Coin coin)
+        /// <summary>
+        /// Callback delegate to add a <c>Coin</c> to a <c>Position</c>.
+        /// </summary>
+        /// <param name="coin">The <c>Coin</c> to add.</param>
+        /// <exception cref="Exception">Will throw an exception if tried to add a <c>Coin</c> to a <c>Position</c> already occupied by another <c>Coin</c>.</exception>
+        public void AddCoin(object? sender, Coin.Coin coin)
         {
-            if (this != coin.SpawnPosition) throw new Exception($"Tried to add {coin} to {this}");
+            if (this != coin.SpawnPosition) throw new Exception($"Tried to add {coin} to {this}, which already has a coin.");
             Coin = coin;
         }
 

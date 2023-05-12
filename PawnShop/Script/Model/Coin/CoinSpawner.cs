@@ -22,7 +22,7 @@ namespace PawnShop.Script.Model.Coin
         private static Board.Board board;
 
         /// <summary>
-        /// Static method to setup the coin spawner.
+        /// Static method to setup the coin1 spawner.
         /// </summary>
         /// <remarks>Call this before calling <c>GetSpawnPosition</c>.</remarks>
         public static void Init()
@@ -39,7 +39,7 @@ namespace PawnShop.Script.Model.Coin
         public static Coin Spawn(Position position)
         {
             if (position.Coin != null) 
-                throw new Exception("The supplied position already has a coin.");
+                throw new Exception("The supplied position already has a coin1.");
             Coin newCoin = new Coin(position);
             OnSpawn?.Invoke(newCoin);
             return newCoin;

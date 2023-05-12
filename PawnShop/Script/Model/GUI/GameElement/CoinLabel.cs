@@ -12,6 +12,7 @@ using static PawnShop.Script.Model.GUI.Interface.ITextGraphic;
 using static PawnShop.Script.Model.GUI.Interface.IImage;
 using SplashKitSDK;
 using PawnShop.Script.Model.Player;
+using PawnShop.Script.Manager.Gameplay;
 
 namespace PawnShop.Script.Model.GUI.GameElement
 {
@@ -50,6 +51,7 @@ namespace PawnShop.Script.Model.GUI.GameElement
             coinImage = new CoinImage();
             coinCount = new CoinCount();
             player.OnCoinUpdate += coinCount.SetValue;
+            coinCount.SetValue(this, player.Currency);
         }
 
         public override void Show()

@@ -103,7 +103,8 @@ namespace PawnShop.Script.Model.Board
         }
 
         public void Execute(object? sender, BaseMove move) => move.Execute();
-
+        public void Execute(object? sender, CoinSpawnEvent spawnEvent) => spawnEvent.Execute();
         public void Abort(object? sender, BaseMove move) => move.Abort();
+        public void Abort(object? sender, CoinSpawnEvent spawnEvent) => spawnEvent.Abort();
     }
 }

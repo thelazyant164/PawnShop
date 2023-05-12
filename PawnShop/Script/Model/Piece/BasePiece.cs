@@ -23,10 +23,10 @@ namespace PawnShop.Script.Model.Piece
         public static readonly IReadOnlyDictionary<PieceRole, int> Costs = new Dictionary<PieceRole, int>()
         {
             { Pawn, 1 },
-            { Knight, 3 },
-            { Bishop, 3 },
-            { Rook, 5 },
-            { Queen, 10 }
+            { Knight, 2 },
+            { Bishop, 2 },
+            { Rook, 4 },
+            { Queen, 9 }
         };
 
         private static int hashCount = 0;

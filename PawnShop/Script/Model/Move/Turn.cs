@@ -22,7 +22,7 @@ namespace PawnShop.Script.Model.Move
             Side = side;
             Move = move;
             Date = DateTime.Now;
-            Console.WriteLine($"{side} played {move} at {Date}");
+            //Console.WriteLine($"{side} played {move} at {Date}");
             OnPlay?.Invoke(this);
         }
     }

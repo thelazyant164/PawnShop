@@ -42,7 +42,7 @@ namespace PawnShop.Script.Model.Move
         {
             if (coin != null)
             {
-                coin.InvokeOnCollect(this, EventArgs.Empty);
+                coin.Collect();
                 player.Gain(coin.Value);
             }
             piece.MoveTo(target);
@@ -53,7 +53,7 @@ namespace PawnShop.Script.Model.Move
             piece.MoveTo(current);
             if (coin != null) 
             {
-                coin.InvokeOnRestore(this, EventArgs.Empty);
+                coin.Restore();
                 player.Spend(coin.Value);
             }
         }

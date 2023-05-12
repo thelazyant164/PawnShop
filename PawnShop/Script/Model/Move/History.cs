@@ -17,7 +17,8 @@ namespace PawnShop.Script.Model.Move
         public IReadOnlyList<Turn> MatchHistory => history.ToList().AsReadOnly();
         private Stack<Turn> history = new Stack<Turn>();
         private Stack<Turn> aborted = new Stack<Turn>();
-
+        private Action? historyBuffer;
+        public bool IsNewTurn => !aborted.Any();
         public event EventHandler<BaseMove>? OnExecute;
         public event EventHandler<BaseMove>? OnAbort;
         public static event StaticEvent<bool>.Handler? OnEnableUndo;
@@ -33,7 +34,8 @@ namespace PawnShop.Script.Model.Move
         /// </summary>
         public void Execute()
         {
-            Turn turn = aborted.Pop();
+            Turn turn = aborted.Peek();
+            historyBuffer = () => aborted.Pop();
             OnExecute?.Invoke(this, turn.Move);
             history.Push(turn);
             GameManager.Instance.TriggerTurnChange();
@@ -44,7 +46,8 @@ namespace PawnShop.Script.Model.Move
         /// </summary>
         public void Abort()
         {
-            Turn turn = history.Pop();
+            Turn turn = history.Peek();
+            historyBuffer = () => history.Pop();
             OnAbort?.Invoke(this, turn.Move);
             aborted.Push(turn);
             GameManager.Instance.TriggerTurnChange();
@@ -59,6 +62,8 @@ namespace PawnShop.Script.Model.Move
 
         public void Progress()
         {
+            historyBuffer?.Invoke();
+            historyBuffer = null;
             OnEnableUndo?.Invoke(history.Any());
             OnEnableRedo?.Invoke(aborted.Any());
         }
