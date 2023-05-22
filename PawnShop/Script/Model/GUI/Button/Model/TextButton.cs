@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Model.GUI.Interface;
-using PawnShop.Script.Manager.GUI;
-using static PawnShop.Script.Model.GUI.Interface.IText;
-using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
-using PawnShop.Script.Model.GUI.Button.State;
-using PawnShop.Script.Model.GUI.Button.UIState;
+﻿using PawnShop.Script.Model.GUI.Button.UIState;
 using PawnShop.Script.Model.GUI.Button.UIStateData;
+using PawnShop.Script.Model.GUI.Interface;
 using SplashKitSDK;
+using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
+using static PawnShop.Script.Model.GUI.Interface.ITextGraphic;
 
 namespace PawnShop.Script.Model.GUI.Button.Model
 {
     public sealed class TextButton
         : BaseButton<TextButtonUIState, TextButtonUIStateData>,
-            IText
+            ITextGraphic
     {
-        public TextContent Content
+        public TextGraphicContent Content
         {
             get => UIState!.GetState(state.State).Content;
         }
@@ -30,7 +23,7 @@ namespace PawnShop.Script.Model.GUI.Button.Model
         {
             if (!Visible)
                 return;
-            SplashKit.DrawText(Content.Text, Content.Color, Content.Font, Content.Size, X, Y);
+            SplashKit.DrawBitmap(Content.Texture, X, Y);
         }
     }
 }

@@ -1,110 +1,104 @@
 ﻿using PawnShop.Script.Model.Board;
+using PawnShop.Script.Model.Coin;
 using PawnShop.Script.Model.GUI.Button.Model;
-using PawnShop.Script.Model.GUI.Interface;
 using PawnShop.Script.Model.GUI.GameElement;
-using static PawnShop.Script.Model.GUI.Interface.IClickable;
-using SplashKitSDK;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Manager.Gameplay;
-using PawnShop.Script.System.GUI.Input;
 using PawnShop.Script.Model.Piece;
 using PawnShop.Script.Model.Player;
+using PawnShop.Script.System.GUI.Input;
+using SplashKitSDK;
 
 namespace PawnShop.Script.Model.GUI.View
 {
-    public class BoardView : BaseView 
+    public sealed class BoardView : BaseView
     {
-        public BoardView(BasePlayer player, Board.Board board) : base(player)
+        public BoardView(BasePlayer player, InputSystem inputController, Board.Board board) : base(player, inputController)
         {
-            foreach (Position position in board.Positions) 
+            PieceFactory.OnPieceAdd += OnPieceAdd;
+            CoinSpawner.OnSpawn += OnSpawnCoin;
+            foreach (Position position in board.Positions)
             {
-                InitInteractablePosition(position);
+                InitPosition(position);
+            }
+
+            BuyButton buyButton = new BuyButton();
+            buyButton.OnClick += (object? sender, EventArgs e) => Input.ToggleBuyMode();
+            Interactables.Add(buyButton);
+
+            UpgradeButton upgradeButton = new UpgradeButton();
+            upgradeButton.OnClick += (object? sender, EventArgs e) => Input.ToggleUpgradeMode();
+            upgradeButton.OnClick += (object? sender, EventArgs e) => Input.ToggleUpgradeView();
+            Interactables.Add(upgradeButton);
+
+            UndoButton undoButton = new UndoButton();
+            undoButton.OnClick += (object? sender, EventArgs e) => Input.Undo();
+            Interactables.Add(undoButton);
+
+            RedoButton redoButton = new RedoButton();
+            redoButton.OnClick += (object? sender, EventArgs e) => Input.Redo();
+            Interactables.Add(redoButton);
+
+            Visibles.Add(new CoinLabel(player));
+        }
+
+        private void OnSpawnCoin(Coin.Coin coin)
+        {
+            CoinSprite coinSprite = new CoinSprite(coin.SpawnPosition);
+            coin.OnCollect += coinSprite.OnCollect;
+            coin.OnRestore += coinSprite.OnRestore;
+            coin.OnExpire += coinSprite.OnCollect;
+            coinSprite.Show();
+            Visibles.Add(coinSprite);
+        }
+
+        private void OnPieceAdd(BasePiece newPiece)
+        {
+            PieceElement pieceButton = InitPieceElement(newPiece);
+            if (newPiece.Side == player.Side)
+            {
+                pieceButton.OnClick += (object? sender, EventArgs e) => Input.TogglePieceSelect(newPiece);
+                Interactables.Add(pieceButton);
+            }
+            else
+            {
+                Visibles.Add(pieceButton);
             }
         }
 
-        private void InitInteractablePosition(Position positionModel)
+        private void InitPosition(Position positionModel)
         {
-            InvisibleButton positionButton = BoardViewFactory.InitPositionButton(positionModel);
-            positionButton.OnClick += positionModel.OnClick;
-            Interactables.Add(positionButton);
-
-            PositionIndicator positionIndicator = BoardViewFactory.InitPositionIndicator(positionModel);
-            positionModel.OnHighlight += positionIndicator.OnHighlight;
-            Visibles.Add(positionIndicator);
-
+            OnPositionAdd(positionModel);
             if (positionModel.IsOccupied)
             {
-                if (positionModel.IsOccupiedByPlayer(Player))
-                {
-                    InitInteractablePiece(positionModel.OccupyingPiece!);
-                }
-                else
-                {
-                    InitVisiblePiece(positionModel.OccupyingPiece!);
-                }
+                OnPieceAdd(positionModel.OccupyingPiece!);
             }
         }
 
-        private void InitInteractablePiece(BasePiece pieceModel)
+        private void OnPositionAdd(Position newPosition)
         {
-            PieceElement pieceButton = BoardViewFactory.InitPiece(pieceModel);
-            pieceButton.OnClick += pieceModel.InvokeOnSelect;
-            pieceModel.OnMove += pieceButton.OnMove;
-            pieceModel.OnCapture += pieceButton.OnCapture;
-            pieceModel.OnRestore += pieceButton.OnRestore;
-            Interactables.Add(pieceButton);
+            InvisibleButton positionButton = BoardViewFactory.InitPositionButton(newPosition);
+            positionButton.OnClick += (object? sender, EventArgs e)
+                => Input.TogglePositionSelect(newPosition);
+            Interactables.Add(positionButton);
+
+            PositionIndicator positionIndicator = BoardViewFactory.InitPositionIndicator(newPosition);
+            newPosition.OnHighlight += (object? sender, Position.HighlightType type)
+                => Input.ToggleIndicatorHighlight(positionIndicator, type);
+            Visibles.Add(positionIndicator);
         }
 
-        private void InitVisiblePiece(BasePiece pieceModel)
+        private PieceElement InitPieceElement(BasePiece pieceModel)
         {
             PieceElement pieceButton = BoardViewFactory.InitPiece(pieceModel);
             pieceModel.OnMove += pieceButton.OnMove;
             pieceModel.OnCapture += pieceButton.OnCapture;
             pieceModel.OnRestore += pieceButton.OnRestore;
-            Visibles.Add(pieceButton);
-        }
-
-        public override void Show()
-        {
-            base.Show();
-            foreach (IInteractable interactable in Interactables) 
-            {
-                interactable.Show();
-            }
-            foreach (IVisible visible in Visibles)
-            {
-                visible.Show();
-            }
-        }
-
-        public override void Hide()
-        {
-            base.Hide();
-            foreach (IInteractable interactable in Interactables)
-            {
-                interactable.Hide();
-            }
-            foreach (IVisible visible in Visibles)
-            {
-                visible.Hide();
-            }
+            return pieceButton;
         }
 
         public override void Draw()
         {
             SplashKit.DrawBitmap(BoardViewFactory.BoardGraphic, X, Y);
-            foreach (IInteractable interactable in Interactables)
-            {
-                interactable.Draw();
-            }
-            foreach (IVisible visible in Visibles) 
-            { 
-                visible.Draw();
-            }
+            base.Draw();
         }
     }
 }

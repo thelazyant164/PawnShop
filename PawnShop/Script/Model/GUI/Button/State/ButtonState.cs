@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PawnShop.Script.Model.GUI.Button.State
+﻿namespace PawnShop.Script.Model.GUI.Button.State
 {
     public class ButtonState
     {
@@ -35,6 +29,21 @@ namespace PawnShop.Script.Model.GUI.Button.State
             }
         }
 
+        public virtual void Activate(Action _activateDelegate)
+        {
+            switch (State)
+            {
+                case SelectionState.Pressed
+                or SelectionState.Active
+                or SelectionState.Selected:
+                    return;
+                case SelectionState.Inactive:
+                    State = SelectionState.Active;
+                    _activateDelegate();
+                    break;
+            }
+        }
+
         public virtual void Deactivate(Action _deactivateDelegate)
         {
             switch (State)
@@ -57,7 +66,7 @@ namespace PawnShop.Script.Model.GUI.Button.State
                 case SelectionState.Inactive
                 or SelectionState.Selected:
                     return;
-                case SelectionState.Active 
+                case SelectionState.Active
                 or SelectionState.Pressed:
                     State = SelectionState.Selected;
                     _selectDelegate();

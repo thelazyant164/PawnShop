@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PawnShop.Script.Model.GUI.Interface
+﻿namespace PawnShop.Script.Model.GUI.Interface
 {
     public interface IInteractable : IVisible
     {
         public abstract event EventHandler OnSelect;
         public abstract event EventHandler OnDeselect;
+        public abstract event EventHandler OnActivate;
+        public abstract event EventHandler OnDeactivate;
 
         public abstract bool IsSelected { get; }
 

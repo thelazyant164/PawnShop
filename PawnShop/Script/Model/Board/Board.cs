@@ -1,14 +1,7 @@
-﻿using PawnShop.Script.Manager.Gameplay;
+﻿using PawnShop.Script.Model.Coin;
 using PawnShop.Script.Model.Move;
 using PawnShop.Script.Model.Piece;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static PawnShop.Script.Model.Move.BaseMove;
-using static PawnShop.Script.Model.Board.Position;
-using static PawnShop.Script.Model.Board.Board;
+using PawnShop.Script.Utility;
 
 namespace PawnShop.Script.Model.Board
 {
@@ -45,11 +38,21 @@ namespace PawnShop.Script.Model.Board
         {
             foreach (Rank rank in Enum.GetValues(typeof(Rank)))
             {
-                foreach (File file in Enum.GetValues(typeof(File))) 
+                foreach (File file in Enum.GetValues(typeof(File)))
                 {
                     positions.Add(new Position(file, rank));
                 }
             }
+        }
+
+        public bool TryLocateRandomEmpty(out Position? position)
+        {
+            File randomFile = typeof(File).GetRandomValue<File>();
+            Rank randomRank = typeof(Rank).GetRandomValue<Rank>();
+            TryLocate(randomFile, randomRank, out position);
+            if (position == null) return false;
+            position = position!.IsEmpty ? position : null;
+            return position != null;
         }
 
         public bool TryLocate(File file, Rank rank, out Position? position)
@@ -64,10 +67,13 @@ namespace PawnShop.Script.Model.Board
             return position != null;
         }
 
-        public bool TryLocate(Coordinate coordinate, out Position? position)
+        public bool TryLocate(Coin.Coin coin, out Position? position)
         {
-            return TryLocate(coordinate.File, coordinate.Rank, out position);
+            position = positions.Find(pos => pos.Coin == coin);
+            return position != null;
         }
+
+        public bool TryLocate(Coordinate coordinate, out Position? position) => TryLocate(coordinate.File, coordinate.Rank, out position);
 
         public void AddPiece(BasePiece newPiece)
         {
@@ -87,34 +93,9 @@ namespace PawnShop.Script.Model.Board
             }
         }
 
-        public void RemovePiece(BasePiece removedPiece)
-        {
-            File file = removedPiece.StartPosition.File;
-            Rank rank = removedPiece.StartPosition.Rank;
-            if (TryLocate(file, rank, out Position? position))
-            {
-                if (position!.OccupyingPiece != removedPiece)
-                {
-                    throw new Exception(
-                        "Error: trying to remove piece from somewhere piece is not."
-                    );
-                }
-                position.OccupyingPiece = null;
-            }
-            else
-            {
-                throw new Exception("Error: trying to remove piece from invalid position.");
-            }
-        }
-
-        public void Execute(object? sender, BaseMove move)
-        {
-            move.Execute();
-        }
-
-        public void Abort(object? sender, BaseMove move)
-        {
-            move.Abort();
-        }
+        public void Execute(object? sender, BaseMove move) => move.Execute();
+        public void Execute(object? sender, CoinSpawnEvent spawnEvent) => spawnEvent.Execute();
+        public void Abort(object? sender, BaseMove move) => move.Abort();
+        public void Abort(object? sender, CoinSpawnEvent spawnEvent) => spawnEvent.Abort();
     }
 }

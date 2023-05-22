@@ -1,13 +1,8 @@
 using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Piece;
-using PawnShop.Script.System.Gameplay;
 using PawnShop.Script.System.Gameplay.GameState;
-using PawnShop.Script.System.Gameplay.PieceState;
 using static PawnShop.Script.Manager.Gameplay.GameManager;
-using static PawnShop.Script.Model.Board.Board;
-using static PawnShop.Script.Model.Piece.BasePiece;
-using static PawnShop.Script.Model.Player.BasePlayer;
 using static PawnShop.Script.Model.Player.BasePlayer.PlayerType;
 
 
@@ -17,7 +12,7 @@ namespace PawnShopTest
     public class BasePlayerTest
     {
         private Board board;
-        private TurnSystem turnSystem;
+        private PlayerManager turnSystem;
         private readonly GameStateSystem gameStateSystem = new GameStateSystem();
 
         [SetUp]
@@ -34,11 +29,11 @@ namespace PawnShopTest
             PieceFactory.OnPieceAdd += board.AddPiece;
             PieceFactory.InitializePieces();
             gameStateSystem.SetGameState(new GameInProgress(gameStateSystem));
-            turnSystem = new TurnSystem(config);
+            turnSystem = new PlayerManager(config);
         }
 
         [TearDown]
-        public void Teardown() 
+        public void Teardown()
         {
             PieceFactory.UnregisterAll();
         }

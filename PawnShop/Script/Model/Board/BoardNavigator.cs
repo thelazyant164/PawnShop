@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Manager.Gameplay;
-using static PawnShop.Script.Model.Board.Board;
-using static PawnShop.Script.Model.Board.Position;
-using static PawnShop.Script.Model.Player.BasePlayer;
-using static PawnShop.Script.Model.Board.Coordinate;
-using PawnShop.Script.System.Gameplay;
+﻿using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Piece;
+using static PawnShop.Script.Model.Board.Coordinate;
 
 namespace PawnShop.Script.Model.Board
 {
@@ -28,12 +18,12 @@ namespace PawnShop.Script.Model.Board
         public static void Init()
         {
             board = GameManager.Instance.Board;
-            turnSystem = GameManager.Instance.TurnSystem!;
+            playerManager = GameManager.Instance.PlayerManager!;
         }
         private static Board board;
-        private static TurnSystem turnSystem;
+        private static PlayerManager playerManager;
 
-        private static IReadOnlyList<(int, int)> knightmoves = new List<(int, int)>
+        private static IReadOnlyList<(int, int)> knightMoves = new List<(int, int)>
         {
             (1, 2),
             (1, -2),
@@ -61,10 +51,10 @@ namespace PawnShop.Script.Model.Board
                 }
                 if (potentialmove!.IsOccupied)
                 {
-                    potentialmoves.Add(potentialmove); // Potential Capture
+                    potentialmoves.Add(potentialmove);
                     break;
                 }
-                potentialmoves.Add(potentialmove); // Move Capture
+                potentialmoves.Add(potentialmove);
             }
             return potentialmoves;
         }
@@ -79,11 +69,11 @@ namespace PawnShop.Script.Model.Board
         public static List<Position> NavigateNorthWest(Position position, int moveLimit) => TryNavigateFrom(position, TryNorthWest, moveLimit);
 
         /// <summary>
-        /// Static method to generate all possible moves for a <c>Bishop</c>.
+        /// Static method to generate all possible moves for a <c>BishopRect</c>.
         /// </summary>
-        /// <returns>A collection of all possible <c>Position</c>s the <c>Bishop</c> can Capture to.</returns>
-        /// <param name="position">Current position of the <c>Bishop</c>.</param>
-        /// <param name="moveLimit">The maximum Capture limit of the piece.</param>
+        /// <returns>A collection of all possible <c>Position</c>s the <c>BishopRect</c> can move to.</returns>
+        /// <param name="position">Current position of the <c>BishopRect</c>.</param>
+        /// <param name="moveLimit">The maximum move limit of the piece.</param>
         public static List<Position> BishopNavigate(Position position, int moveLimit)
         {
             List<Position> potentialmoves = new List<Position>();
@@ -97,11 +87,11 @@ namespace PawnShop.Script.Model.Board
         }
 
         /// <summary>
-        /// Static method to generate all possible moves for a Rook.
+        /// Static method to generate all possible moves for a RookRect.
         /// </summary>
-        /// <returns>A collection of all possible <c>Position</c>s the <c>Rook</c> can Capture to.</returns>
-        /// <param name="position">Current position of the <c>Rook</c>.</param>
-        /// <param name="moveLimit">The maximum Capture limit of the piece.</param>
+        /// <returns>A collection of all possible <c>Position</c>s the <c>RookRect</c> can move to.</returns>
+        /// <param name="position">Current position of the <c>RookRect</c>.</param>
+        /// <param name="moveLimit">The maximum move limit of the piece.</param>
         public static List<Position> RookNavigate(Position position, int moveLimit)
         {
             List<Position> potentialmoves = new List<Position>();
@@ -115,14 +105,14 @@ namespace PawnShop.Script.Model.Board
         }
 
         /// <summary>
-        /// Static method to generate all possible moves for a <c>Knight</c>.
+        /// Static method to generate all possible moves for a <c>KnightRect</c>.
         /// </summary>
-        /// <returns>A collection of all possible <c>Position</c>s the <c>Knight</c> can Capture to.</returns>
-        /// <param name="position">Current position of the <c>Knight</c>.</param>
+        /// <returns>A collection of all possible <c>Position</c>s the <c>KnightRect</c> can move to.</returns>
+        /// <param name="position">Current position of the <c>KnightRect</c>.</param>
         public static List<Position> KnightNavigate(Position position)
         {
             List<Position> potentialmoves = new List<Position>();
-            foreach ((int, int) offset in knightmoves)
+            foreach ((int, int) offset in knightMoves)
             {
                 if (TryNavigateFrom(position, offset, out Position? target))
                 {
@@ -139,10 +129,7 @@ namespace PawnShop.Script.Model.Board
             {
                 if (board.TryLocate((Coordinate)target!, out potentialmove))
                 {
-                    if (!potentialmove!.IsOccupied || potentialmove!.IsOccupiedByPlayer(turnSystem.Opponent))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
             return false;
@@ -164,7 +151,7 @@ namespace PawnShop.Script.Model.Board
             {
                 occupyingPiece?.Capture();
                 piece.MoveTo(target);
-                if (!turnSystem.GetPlayer(piece.Side).IsUnderCheck())
+                if (!playerManager.GetPlayer(piece.Side).IsUnderCheck())
                 {
                     piece.MoveTo(currentPosition!);
                     occupyingPiece?.Restore();

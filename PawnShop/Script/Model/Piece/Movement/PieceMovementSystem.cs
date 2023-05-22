@@ -1,17 +1,6 @@
 ﻿using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Board;
-using PawnShop.Script.Model.Move;
 using PawnShop.Script.Model.Player;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static PawnShop.Script.Model.Piece.BasePiece;
 using static PawnShop.Script.Model.Piece.BasePiece.PieceRole;
 using static PawnShop.Script.Model.Player.BasePlayer.PlayerSide;
 
@@ -25,11 +14,13 @@ namespace PawnShop.Script.Model.Piece.Movement
         private BasePiece piece;
         private BasePlayer opponent;
 
+        public bool Upgradeable => movement.IsUpgradeable(piece, Position);
+
         public PieceMovementSystem(BasePiece piece)
         {
             piece.OnCapture += OnCapture;
             this.piece = piece;
-            opponent = GameManager.Instance.TurnSystem!.GetPlayer(piece.Side == White ? Black : White);
+            opponent = GameManager.Instance.PlayerManager!.GetPlayer(piece.Side == White ? Black : White);
             Position = piece.StartPosition;
             switch (piece.Role)
             {

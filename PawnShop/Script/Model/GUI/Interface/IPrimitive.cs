@@ -9,10 +9,12 @@ namespace PawnShop.Script.Model.GUI.Interface
             public float X;
             public float Y;
             public Position(float x, float y)
-            { 
+            {
                 X = x;
                 Y = y;
             }
+
+            public static readonly Position Origin = new Position(0, 0);
         }
 
         public abstract float X { get; }

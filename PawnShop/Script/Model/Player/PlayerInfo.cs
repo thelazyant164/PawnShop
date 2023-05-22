@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Model.Board;
+﻿using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Piece;
 using static PawnShop.Script.Model.Player.BasePlayer;
 
@@ -11,6 +6,8 @@ namespace PawnShop.Script.Model.Player
 {
     public class PlayerInfo
     {
+        public int Currency { get; private set; } = 0;
+
         public PlayerSide Side { get; private set; }
 
         public PlayerType Type { get; private set; }
@@ -22,7 +19,7 @@ namespace PawnShop.Script.Model.Player
             get
             {
                 HashSet<Position> result = new HashSet<Position>();
-                foreach (BasePiece piece in Pieces) 
+                foreach (BasePiece piece in Pieces)
                 {
                     if (piece.Reign != null)
                     {
@@ -32,6 +29,8 @@ namespace PawnShop.Script.Model.Player
                 return result;
             }
         }
+
+        public bool HasValidMoves => Pieces.Any(piece => piece.GetAllMoves().Any());
 
         public PlayerInfo(PlayerSide side, PlayerType type)
         {
@@ -51,10 +50,14 @@ namespace PawnShop.Script.Model.Player
 
         public void Update()
         {
-            foreach (BasePiece piece in Pieces) 
+            foreach (BasePiece piece in Pieces)
             {
                 piece.Progress();
             }
         }
+
+        public void Spend(int coin) => Currency -= coin;
+
+        public void Gain(int coin) => Currency += coin;
     }
 }

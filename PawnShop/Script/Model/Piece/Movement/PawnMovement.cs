@@ -1,13 +1,7 @@
-﻿using PawnShop.Script.Model.Board;
+﻿using PawnShop.Script.Manager.Gameplay;
+using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Player;
-using static PawnShop.Script.Model.Player.BasePlayer;
 using static PawnShop.Script.Model.Player.BasePlayer.PlayerSide;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PawnShop.Script.Model.Piece.Movement
 {
@@ -19,12 +13,12 @@ namespace PawnShop.Script.Model.Piece.Movement
         {
             List<Position> result = GetReign(piece, currentPos);
             result = result.Where(pos => pos.IsOccupiedByPlayer(opponent)).ToList();
-            Position movable = piece.Side == White 
-                ? BoardNavigator.NavigateNorth(currentPos, 1).First() 
-                : BoardNavigator.NavigateSouth(currentPos, 1).First();
-            if (!movable.IsOccupied)
+            Position? movable = piece.Side == White
+                ? BoardNavigator.NavigateNorth(currentPos, 1).FirstOrDefault()
+                : BoardNavigator.NavigateSouth(currentPos, 1).FirstOrDefault();
+            if (!movable?.IsOccupied ?? false)
             {
-                result.Add(movable);
+                result.Add(movable!);
             }
             return result.Where(pos => BoardNavigator.IsMoveValid(piece, pos)).ToHashSet();
         }
@@ -44,6 +38,12 @@ namespace PawnShop.Script.Model.Piece.Movement
                     break;
             }
             return result;
+        }
+
+        public override bool IsUpgradeable(BasePiece piece, Position currentPos)
+        {
+            BasePiece king = GameManager.Instance.PlayerManager.GetPlayer(piece.Side).King;
+            return king.GetReign().Contains(currentPos) && !king.IsEndangered();
         }
     }
 }

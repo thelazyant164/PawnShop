@@ -1,21 +1,22 @@
-﻿using SplashKitSDK;
-using PawnShop.Script.Model.GUI.Interface;
-using PawnShop.Script.Model.GUI.Component;
-using PawnShop.Script.Model.GUI.Button.State;
+﻿using PawnShop.Script.Model.GUI.Button.State;
 using PawnShop.Script.Model.GUI.Button.UIState;
 using PawnShop.Script.Model.GUI.Button.UIStateData;
+using PawnShop.Script.Model.GUI.Component;
+using PawnShop.Script.Model.GUI.Interface;
+using SplashKitSDK;
 using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
 
 namespace PawnShop.Script.Model.GUI.Button.Model
 {
-    public abstract class BaseButton<U, V> : InteractableComponent, IClickable, IHoverable
-        where U : SpriteUIState<V>
+    public abstract class BaseButton<U, V> : InteractableComponent, IClickable
+        where U : ButtonUIState<V>
         where V : ButtonUIStateData
     {
         public virtual event EventHandler? OnClick;
-        public virtual event EventHandler? OnHover;
         public override event EventHandler? OnSelect;
         public override event EventHandler? OnDeselect;
+        public override event EventHandler? OnActivate;
+        public override event EventHandler? OnDeactivate;
 
         protected ButtonState state { get; } = new ButtonState();
 
@@ -26,26 +27,35 @@ namespace PawnShop.Script.Model.GUI.Button.Model
             this.UIState = UIState;
         }
 
-
-        public virtual bool IsMouseDown()
+        public override void Activate()
         {
-            return SplashKit.MouseDown(MouseButton.LeftButton);
+            base.Activate();
+            state.Activate(() =>
+            {
+                OnActivate?.Invoke(this, EventArgs.Empty);
+            });
         }
+
+        public override void Deactivate()
+        {
+            base.Deactivate();
+            state.Deactivate(() =>
+            {
+                OnDeactivate?.Invoke(this, EventArgs.Empty);
+            });
+        }
+
+        public virtual bool IsMouseDown() => SplashKit.MouseDown(MouseButton.LeftButton);
 
         public override void Update()
         {
             if (!Active)
             {
-                state.Deactivate(() =>
-                {
-                    Console.WriteLine("Deactivated button.");
-                });
                 return;
             }
             Point2D mousePosition = SplashKit.MousePosition();
             if (IsCursorOver(mousePosition))
             {
-                OnHover?.Invoke(this, EventArgs.Empty);
                 if (IsMouseDown())
                 {
                     state.Click(() => OnClick?.Invoke(

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Model.GUI.Button.UIStateData;
+﻿using PawnShop.Script.Model.GUI.Button.UIStateData;
 
 namespace PawnShop.Script.Model.GUI.Button.UIState
 {
-    public sealed class TextButtonUIState : SpriteUIState<TextButtonUIStateData>
+    public sealed class TextButtonUIState : ButtonUIState<TextButtonUIStateData>
     {
         public TextButtonUIState(
             TextButtonUIStateData activeUI,

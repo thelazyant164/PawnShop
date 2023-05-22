@@ -1,11 +1,10 @@
-﻿using PawnShop.Script.Model.Board;
-using PawnShop.Script.Model.GUI.Component;
+﻿using PawnShop.Script.Model.GUI.Component;
 using PawnShop.Script.Model.GUI.Interface;
+using SplashKitSDK;
 using static PawnShop.Script.Model.Board.Position;
 using static PawnShop.Script.Model.Board.Position.HighlightType;
-using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
 using static PawnShop.Script.Model.GUI.Interface.IImage;
-using SplashKitSDK;
+using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
 
 namespace PawnShop.Script.Model.GUI.GameElement
 {
@@ -17,20 +16,20 @@ namespace PawnShop.Script.Model.GUI.GameElement
 
         public ImageContent Content { get; private set; }
 
-        public PositionIndicator(PrimitiveRect rect, 
-            ImageContent selectedUI, 
-            ImageContent movableUI, 
-            ImageContent capturableUI) : base(rect) 
+        public PositionIndicator(PrimitiveRect rect,
+            ImageContent selectedUI,
+            ImageContent movableUI,
+            ImageContent capturableUI) : base(rect)
         {
-            this.selectedUI = selectedUI; 
-            this.movableUI = movableUI; 
+            this.selectedUI = selectedUI;
+            this.movableUI = movableUI;
             this.capturableUI = capturableUI;
         }
 
-        public void OnHighlight(object? sender, HighlightType type)
+        public void ToggleHighlight(HighlightType type)
         {
             Visible = true;
-            switch (type) 
+            switch (type)
             {
                 case Selected:
                     Content = selectedUI;
@@ -38,7 +37,7 @@ namespace PawnShop.Script.Model.GUI.GameElement
                 case Movable:
                     Content = movableUI;
                     break;
-                case Capturable: 
+                case Capturable:
                     Content = capturableUI;
                     break;
                 default:
@@ -47,7 +46,7 @@ namespace PawnShop.Script.Model.GUI.GameElement
             }
         }
 
-        public override void Show() {} // override show functionality - indicator's shown status changed only by responding to event
+        public override void Show() { } // override show functionality - indicator's shown status changed only by responding to event
 
         public override void Draw()
         {

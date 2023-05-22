@@ -1,17 +1,14 @@
 ﻿using PawnShop.Script.Model.GUI.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
 
 namespace PawnShop.Script.Model.GUI.Component
 {
     public abstract class InteractableComponent : RectangularComponent, IInteractable
     {
-        public abstract event EventHandler? OnSelect;
-        public abstract event EventHandler? OnDeselect;
+        public virtual event EventHandler? OnSelect;
+        public virtual event EventHandler? OnDeselect;
+        public virtual event EventHandler? OnActivate;
+        public virtual event EventHandler? OnDeactivate;
 
         public virtual bool Active { get; protected set; } = true;
 
