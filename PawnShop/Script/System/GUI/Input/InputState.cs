@@ -3,11 +3,6 @@ using PawnShop.Script.Model.GUI.GameElement;
 using PawnShop.Script.Model.Piece;
 using PawnShop.Script.Model.Player;
 using PawnShop.Script.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static PawnShop.Script.Model.Board.Position;
 using static PawnShop.Script.Model.Piece.BasePiece;
 

@@ -1,11 +1,4 @@
-﻿using PawnShop.Script.Model.Board;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PawnShop.Script.Model.Coin
+﻿namespace PawnShop.Script.Model.Coin
 {
     public sealed class CoinSpawnEvent
     {
@@ -16,7 +9,7 @@ namespace PawnShop.Script.Model.Coin
             this.spawned = spawned;
         }
 
-        public void Execute() 
+        public void Execute()
         {
             foreach (Coin coin in spawned)
             {
@@ -24,7 +17,7 @@ namespace PawnShop.Script.Model.Coin
             }
         }
 
-        public void Abort() 
+        public void Abort()
         {
             foreach (Coin coin in spawned)
             {

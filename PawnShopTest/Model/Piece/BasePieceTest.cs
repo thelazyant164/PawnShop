@@ -1,8 +1,5 @@
 using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Piece;
-using static PawnShop.Script.Model.Board.Board;
-using static PawnShop.Script.Model.Piece.BasePiece;
-using static PawnShop.Script.Model.Player.BasePlayer;
 
 namespace PawnShopTest
 {
@@ -19,7 +16,7 @@ namespace PawnShopTest
         }
 
         [TearDown]
-        public void Teardown() 
+        public void Teardown()
         {
             PieceFactory.UnregisterAll();
         }

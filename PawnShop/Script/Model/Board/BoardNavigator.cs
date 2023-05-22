@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Manager.Gameplay;
-using static PawnShop.Script.Model.Board.Board;
-using static PawnShop.Script.Model.Board.Position;
-using static PawnShop.Script.Model.Player.BasePlayer;
-using static PawnShop.Script.Model.Board.Coordinate;
+﻿using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Piece;
+using static PawnShop.Script.Model.Board.Coordinate;
 
 namespace PawnShop.Script.Model.Board
 {

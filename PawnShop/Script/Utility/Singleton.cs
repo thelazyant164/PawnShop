@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PawnShop.Script.Utility
+﻿namespace PawnShop.Script.Utility
 {
     /// <summary>
     /// Wrapper class to enforce Singleton behaviour on a class.

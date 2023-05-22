@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Manager.Gameplay;
-using PawnShop.Script.Model.Board;
-using PawnShop.Script.Model.Piece;
-using PawnShop.Script.Model.Player;
+﻿using PawnShop.Script.Model.Piece;
 using static PawnShop.Script.Model.Piece.BasePiece;
 using static PawnShop.Script.Model.Piece.BasePiece.PieceRole;
 
@@ -17,7 +9,7 @@ namespace PawnShop.Script.Model.Move
         public readonly static int Cost = Costs[Pawn];
         private readonly BasePiece piece;
 
-        public Buy(PieceIdentity pieceID) 
+        public Buy(PieceIdentity pieceID)
         {
             piece = PieceFactory.CreatePiece(pieceID);
             piece.Capture();

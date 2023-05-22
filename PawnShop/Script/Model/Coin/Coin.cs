@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Model.Board;
-using PawnShop.Script.System.Gameplay.GameState;
-using static PawnShop.Script.Model.Player.BasePlayer;
+﻿using PawnShop.Script.Model.Board;
 
 namespace PawnShop.Script.Model.Coin
 {
@@ -39,7 +31,7 @@ namespace PawnShop.Script.Model.Coin
         public void Age()
         {
             lifespan--;
-            if (lifespan == 0) 
+            if (lifespan == 0)
             {
                 Expire();
             }
@@ -47,7 +39,7 @@ namespace PawnShop.Script.Model.Coin
 
         public void Deage()
         {
-            if (lifespan == 0) 
+            if (lifespan == 0)
             {
                 Restore();
             }

@@ -1,18 +1,7 @@
-﻿using PawnShop.Script.Model.GUI.Button.Model;
-using PawnShop.Script.Model.GUI.Component;
+﻿using PawnShop.Script.Model.GUI.Component;
 using PawnShop.Script.Model.GUI.Label;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
-using static PawnShop.Script.Model.GUI.Interface.IPrimitive;
-using static PawnShop.Script.Model.GUI.Interface.ITextGraphic;
-using static PawnShop.Script.Model.GUI.Interface.IImage;
-using SplashKitSDK;
-using PawnShop.Script.Model.Player;
 using PawnShop.Script.Model.Move;
+using static PawnShop.Script.Model.GUI.Interface.IPrimitive;
 
 namespace PawnShop.Script.Model.GUI.GameElement
 {
@@ -34,7 +23,7 @@ namespace PawnShop.Script.Model.GUI.GameElement
         private readonly TextLabel piecePawned;
         private readonly TextLabel pieceUpgraded;
 
-        public MatchStatisticLabel(MatchStatistic matchStat) : base(Position.Origin) 
+        public MatchStatisticLabel(MatchStatistic matchStat) : base(Position.Origin)
         {
             totalTimeElapsed = new TextLabel(new Position(x, y), $"Match duration: {matchStat.TotalTimeElapsed}");
             timeElapsed = new TextLabel(new Position(x, y + lineWidth), $"Total turn duration: {matchStat.TimeElapsed}");

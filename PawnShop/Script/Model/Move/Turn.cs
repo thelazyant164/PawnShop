@@ -1,10 +1,4 @@
-﻿using PawnShop.Script.Model.Player;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Utility;
+﻿using PawnShop.Script.Utility;
 using static PawnShop.Script.Model.Player.BasePlayer;
 
 namespace PawnShop.Script.Model.Move
@@ -17,7 +11,7 @@ namespace PawnShop.Script.Model.Move
         public readonly BaseMove Move;
         public readonly DateTime Date;
 
-        public Turn(PlayerSide side, BaseMove move) 
+        public Turn(PlayerSide side, BaseMove move)
         {
             Side = side;
             Move = move;

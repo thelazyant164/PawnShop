@@ -4,12 +4,6 @@ using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.GUI.GameElement;
 using PawnShop.Script.Model.GUI.View;
 using PawnShop.Script.Model.Piece;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using static PawnShop.Script.Model.Board.Position;
 using static PawnShop.Script.Model.Piece.BasePiece;
 
@@ -48,13 +42,13 @@ namespace PawnShop.Script.System.GUI.Input
 
         public override void SelectUpgradeRole(PieceRole role) => Player.SelectUpgradeRole(role);
 
-        public override void Undo() 
+        public override void Undo()
         {
             GameManager.Instance.History.Abort();
             GameManager.Instance.CoinManager.Abort();
         }
 
-        public override void Redo() 
+        public override void Redo()
         {
             GameManager.Instance.CoinManager.Execute();
             GameManager.Instance.History.Execute();

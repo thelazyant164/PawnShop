@@ -2,11 +2,7 @@ using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Piece;
 using PawnShop.Script.System.Gameplay.GameState;
-using PawnShop.Script.System.Gameplay.PieceState;
 using static PawnShop.Script.Manager.Gameplay.GameManager;
-using static PawnShop.Script.Model.Board.Board;
-using static PawnShop.Script.Model.Piece.BasePiece;
-using static PawnShop.Script.Model.Player.BasePlayer;
 using static PawnShop.Script.Model.Player.BasePlayer.PlayerType;
 
 
@@ -37,7 +33,7 @@ namespace PawnShopTest
         }
 
         [TearDown]
-        public void Teardown() 
+        public void Teardown()
         {
             PieceFactory.UnregisterAll();
         }

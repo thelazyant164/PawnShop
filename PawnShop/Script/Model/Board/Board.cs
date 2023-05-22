@@ -1,15 +1,6 @@
-﻿using PawnShop.Script.Manager.Gameplay;
+﻿using PawnShop.Script.Model.Coin;
 using PawnShop.Script.Model.Move;
 using PawnShop.Script.Model.Piece;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static PawnShop.Script.Model.Move.BaseMove;
-using static PawnShop.Script.Model.Board.Position;
-using static PawnShop.Script.Model.Board.Board;
-using PawnShop.Script.Model.Coin;
 using PawnShop.Script.Utility;
 
 namespace PawnShop.Script.Model.Board
@@ -47,7 +38,7 @@ namespace PawnShop.Script.Model.Board
         {
             foreach (Rank rank in Enum.GetValues(typeof(Rank)))
             {
-                foreach (File file in Enum.GetValues(typeof(File))) 
+                foreach (File file in Enum.GetValues(typeof(File)))
                 {
                     positions.Add(new Position(file, rank));
                 }

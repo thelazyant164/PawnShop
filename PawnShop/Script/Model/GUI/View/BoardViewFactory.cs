@@ -1,22 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Model.Board;
-using PawnShop.Script.Model.Piece;
+﻿using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.GUI.Button.Model;
 using PawnShop.Script.Model.GUI.Button.UIState;
 using PawnShop.Script.Model.GUI.Button.UIStateData;
+using PawnShop.Script.Model.GUI.GameElement;
+using PawnShop.Script.Model.GUI.Interface;
+using PawnShop.Script.Model.Piece;
+using SplashKitSDK;
 using static PawnShop.Script.Model.Board.Board;
+using static PawnShop.Script.Model.GUI.Interface.IImage;
+using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
 using static PawnShop.Script.Model.Piece.BasePiece;
 using static PawnShop.Script.Model.Piece.BasePiece.PieceRole;
 using static PawnShop.Script.Model.Player.BasePlayer;
 using static PawnShop.Script.Model.Player.BasePlayer.PlayerSide;
-using static PawnShop.Script.Model.GUI.Interface.IImage;
-using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
-using SplashKitSDK;
-using PawnShop.Script.Model.GUI.GameElement;
-using PawnShop.Script.Model.GUI.Interface;
 
 namespace PawnShop.Script.Model.GUI.View
 {
@@ -40,14 +36,14 @@ namespace PawnShop.Script.Model.GUI.View
         private readonly static float PositionSize = 90; // for 1368x720 res
         private readonly static Dimension PositionDimension = new Dimension(PositionSize, PositionSize);
 
-        private readonly static ImageContent selectedPosition = 
+        private readonly static ImageContent selectedPosition =
             new ImageContent(new Bitmap($"selected_position_indicator", $"{positionDir}\\selected.png"));
-        private readonly static ImageContent movablePosition = 
+        private readonly static ImageContent movablePosition =
             new ImageContent(new Bitmap($"movable_position_indicator", $"{positionDir}\\movable.png"));
-        private readonly static ImageContent capturablePosition = 
+        private readonly static ImageContent capturablePosition =
             new ImageContent(new Bitmap($"capturable_position_indicator", $"{positionDir}\\capturable.png"));
 
-        public static IPrimitive.Position GetPosition(Coordinate coordinate) 
+        public static IPrimitive.Position GetPosition(Coordinate coordinate)
         {
             float x;
             float y;
@@ -112,10 +108,10 @@ namespace PawnShop.Script.Model.GUI.View
             return new IPrimitive.Position(x, y);
         }
 
-        private static PrimitiveRect GetRect(Coordinate coordinate) 
+        private static PrimitiveRect GetRect(Coordinate coordinate)
             => new PrimitiveRect(GetPosition(coordinate), PositionDimension);
 
-        public static InvisibleButton InitPositionButton(Position position) 
+        public static InvisibleButton InitPositionButton(Position position)
         {
             InvisibleButton clickablePosition = new InvisibleButton
             (
@@ -151,7 +147,7 @@ namespace PawnShop.Script.Model.GUI.View
             string sideName;
             string roleName;
 
-            switch (side) 
+            switch (side)
             {
                 case Black:
                     sideName = "black";
@@ -163,7 +159,7 @@ namespace PawnShop.Script.Model.GUI.View
                     throw new Exception($"Invalid side: encountered {side}");
             }
 
-            switch (role) 
+            switch (role)
             {
                 case Pawn:
                     roleName = "pawn";

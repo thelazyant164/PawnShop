@@ -1,10 +1,4 @@
-﻿using PawnShop.Script.Model.Board;
-using PawnShop.Script.Model.Player;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PawnShop.Script.Model.Player;
 using static PawnShop.Script.Model.Player.BasePlayer;
 
 namespace PawnShop.Script.Manager.Gameplay

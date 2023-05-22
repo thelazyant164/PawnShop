@@ -9,7 +9,7 @@ namespace PawnShop.Script.Model.GUI.Interface
             public float X;
             public float Y;
             public Position(float x, float y)
-            { 
+            {
                 X = x;
                 Y = y;
             }

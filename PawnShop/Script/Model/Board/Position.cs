@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Model.Coin;
-using PawnShop.Script.Utility;
-using PawnShop.Script.Model.Piece;
+﻿using PawnShop.Script.Model.Piece;
 using PawnShop.Script.Model.Player;
 
 namespace PawnShop.Script.Model.Board

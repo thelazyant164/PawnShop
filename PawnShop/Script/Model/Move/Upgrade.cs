@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Manager.Gameplay;
+﻿using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Piece;
 using static PawnShop.Script.Model.Piece.BasePiece;
@@ -19,7 +14,7 @@ namespace PawnShop.Script.Model.Move
         private Position position;
         private BasePiece upgradePiece;
 
-        public Upgrade(BasePiece piece, PieceRole role) 
+        public Upgrade(BasePiece piece, PieceRole role)
         {
             this.piece = piece;
             if (!GameManager.Instance.Board.TryLocate(piece, out Position? pos))

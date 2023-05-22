@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Utility;
-using PawnShop.Script.System.GUI.Input;
-using PawnShop.Script.Model.GUI.View;
-using static PawnShop.Script.Manager.Gameplay.GameManager;
-using static PawnShop.Script.Model.Player.BasePlayer.PlayerType;
-using static PawnShop.Script.Model.Player.BasePlayer.PlayerSide;
-using PawnShop.Script.Manager.Gameplay;
-using PawnShop.Script.Model.Board;
+﻿using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Player;
+using PawnShop.Script.Utility;
+using static PawnShop.Script.Manager.Gameplay.GameManager;
+using static PawnShop.Script.Model.Player.BasePlayer.PlayerSide;
 
 namespace PawnShop.Script.Manager.GUI
 {
@@ -36,7 +27,7 @@ namespace PawnShop.Script.Manager.GUI
         private ViewManager() { }
         private PlayerViewManager black;
         private PlayerViewManager white;
-        public PlayerViewManager PlayerView 
+        public PlayerViewManager PlayerView
             => playerManager.CurrentTurn == Black ? black : white;
         private PlayerManager playerManager;
 

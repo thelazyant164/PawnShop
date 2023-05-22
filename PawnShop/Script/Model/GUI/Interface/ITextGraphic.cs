@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SplashKitSDK;
+﻿using SplashKitSDK;
 
 namespace PawnShop.Script.Model.GUI.Interface
 {
@@ -45,7 +39,7 @@ namespace PawnShop.Script.Model.GUI.Interface
         {
             public Bitmap Texture;
 
-            public TextGraphicContent(string text) 
+            public TextGraphicContent(string text)
             {
                 Texture = texts[text];
             }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Manager.Gameplay;
+﻿using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Player;
 using PawnShop.Script.Utility;
 
@@ -16,7 +11,7 @@ namespace PawnShop.Script.System.Gameplay.GameState
             playerManager.OnTurnChange += OnTurnChange;
         }
 
-        private void OnTurnChange(object? sender, BasePlayer player) 
+        private void OnTurnChange(object? sender, BasePlayer player)
             => SetGameState(new GameInProgress(this));
 
         public GameState CurrentGameState

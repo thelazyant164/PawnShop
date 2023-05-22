@@ -1,18 +1,9 @@
 ﻿using PawnShop.Script.Manager.Gameplay;
-using PawnShop.Script.Manager.GUI;
 using PawnShop.Script.Model.Board;
-using PawnShop.Script.Model.Piece;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static PawnShop.Script.Model.Board.Position.HighlightType;
-using PawnShop.Script.Utility;
-using PawnShop.Script.Model.Player;
-using PawnShop.Script.System.Gameplay.PlayerState;
 using PawnShop.Script.Model.Move;
-using System.Numerics;
+using PawnShop.Script.Model.Piece;
+using PawnShop.Script.Model.Player;
+using static PawnShop.Script.Model.Board.Position.HighlightType;
 
 namespace PawnShop.Script.System.Gameplay.PieceState
 {
@@ -27,7 +18,7 @@ namespace PawnShop.Script.System.Gameplay.PieceState
         private readonly HashSet<Position>? highlightedPositions;
         private bool upgradeMode => PieceStateSystem.Cache.UpgradeMode;
 
-        public SelectedPiece(PieceStateSystem pieceStateSystem) : base(pieceStateSystem) 
+        public SelectedPiece(PieceStateSystem pieceStateSystem) : base(pieceStateSystem)
         {
             GameManager.Instance.Board.TryLocate(PieceStateSystem.Piece, out Position? currentPos);
             currentPosition = currentPos!;
@@ -66,7 +57,7 @@ namespace PawnShop.Script.System.Gameplay.PieceState
             {
                 PieceStateSystem.SetPieceState(new ActivePiece(PieceStateSystem));
             }
-            if (PieceStateSystem.PlayerManager.CurrentTurn != piece.Side) 
+            if (PieceStateSystem.PlayerManager.CurrentTurn != piece.Side)
             {
                 PieceStateSystem.SetPieceState(new InactivePiece(PieceStateSystem));
             }
@@ -80,7 +71,7 @@ namespace PawnShop.Script.System.Gameplay.PieceState
         {
             currentPosition.InvokeOnHighlight(this, None);
             if (highlightedPositions == null) return;
-            foreach (Position position in highlightedPositions) 
+            foreach (Position position in highlightedPositions)
             {
                 position.ToggleResponseToClick(false);
                 position.InvokeOnHighlight(selectedPiece, None);

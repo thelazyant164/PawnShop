@@ -1,15 +1,7 @@
 ﻿using PawnShop.Script.Manager.Gameplay;
-using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.GUI.View;
 using PawnShop.Script.Model.Player;
 using PawnShop.Script.System.GUI.Input;
-using SplashKitSDK;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PawnShop.Script.Manager.GUI
 {
@@ -22,14 +14,14 @@ namespace PawnShop.Script.Manager.GUI
         private Action? _viewBuffer;
         public InputSystem InputController { get; private set; }
 
-        public PlayerViewManager(BasePlayer player) 
+        public PlayerViewManager(BasePlayer player)
         {
             InputController = new InputSystem(player);
             BoardView boardView = new BoardView(player, InputController, GameManager.Instance.Board);
             AddView(boardView);
         }
 
-        public void AddView(BaseView view) => _viewBuffer = () => 
+        public void AddView(BaseView view) => _viewBuffer = () =>
         {
             views.Add(view);
             view.Activate();
@@ -41,8 +33,8 @@ namespace PawnShop.Script.Manager.GUI
         public void StartTurn()
         {
             foreach (BaseView view in views)
-            { 
-                view.Activate(); 
+            {
+                view.Activate();
                 view.Show();
             }
         }
@@ -56,8 +48,8 @@ namespace PawnShop.Script.Manager.GUI
             }
         }
 
-        public void Draw() 
-        { 
+        public void Draw()
+        {
             foreach (BaseView view in views)
             {
                 view.Draw();

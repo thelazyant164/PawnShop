@@ -1,15 +1,5 @@
 ﻿using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Player;
-using static PawnShop.Script.Model.Player.BasePlayer;
-using static PawnShop.Script.Model.Player.BasePlayer.PlayerSide;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Manager.Gameplay;
-using System.ComponentModel;
-using PawnShop.Script.System.Gameplay;
 
 namespace PawnShop.Script.Model.Piece.Movement
 {

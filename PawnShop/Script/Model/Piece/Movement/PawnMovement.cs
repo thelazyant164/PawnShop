@@ -1,16 +1,7 @@
-﻿using PawnShop.Script.Model.Board;
+﻿using PawnShop.Script.Manager.Gameplay;
+using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Player;
-using static PawnShop.Script.Model.Player.BasePlayer;
 using static PawnShop.Script.Model.Player.BasePlayer.PlayerSide;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.System.Gameplay.GameState;
-using PawnShop.Script.Manager.Gameplay;
-using System.Drawing;
 
 namespace PawnShop.Script.Model.Piece.Movement
 {
@@ -22,8 +13,8 @@ namespace PawnShop.Script.Model.Piece.Movement
         {
             List<Position> result = GetReign(piece, currentPos);
             result = result.Where(pos => pos.IsOccupiedByPlayer(opponent)).ToList();
-            Position? movable = piece.Side == White 
-                ? BoardNavigator.NavigateNorth(currentPos, 1).FirstOrDefault() 
+            Position? movable = piece.Side == White
+                ? BoardNavigator.NavigateNorth(currentPos, 1).FirstOrDefault()
                 : BoardNavigator.NavigateSouth(currentPos, 1).FirstOrDefault();
             if (!movable?.IsOccupied ?? false)
             {

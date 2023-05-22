@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Manager.Gameplay;
-using static PawnShop.Script.Model.Player.BasePlayer;
-using PawnShop.Script.Utility;
-using static PawnShop.Script.Model.Piece.BasePiece;
+﻿using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Piece;
 using PawnShop.Script.Model.Player.Cache;
+using PawnShop.Script.Utility;
 
 namespace PawnShop.Script.System.Gameplay.PieceState
 {

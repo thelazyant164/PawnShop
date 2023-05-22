@@ -1,14 +1,6 @@
-﻿using PawnShop.Script.Model.Board;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PawnShop.Script.Manager.Gameplay;
+using PawnShop.Script.Model.Board;
 using PawnShop.Script.Utility;
-using PawnShop.Script.Model.Piece;
-using PawnShop.Script.Manager.Gameplay;
-using PawnShop.Script.System.Gameplay;
-using static PawnShop.Script.Model.Player.BasePlayer.PlayerSide;
 
 namespace PawnShop.Script.Model.Coin
 {
@@ -38,7 +30,7 @@ namespace PawnShop.Script.Model.Coin
         /// <exception cref="Exception"/>
         public static Coin Spawn(Position position)
         {
-            if (position.Coin != null) 
+            if (position.Coin != null)
                 throw new Exception("The supplied position already has a coin1.");
             Coin newCoin = new Coin(position);
             OnSpawn?.Invoke(newCoin);

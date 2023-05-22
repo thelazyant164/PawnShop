@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-
-namespace PawnShop.Script.Utility
+﻿namespace PawnShop.Script.Utility
 {
     /// <summary>
     /// Generic static utility class <c>DataParser</c> reads from a specified CSV file path.

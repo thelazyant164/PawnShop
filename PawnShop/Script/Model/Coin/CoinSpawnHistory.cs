@@ -1,13 +1,4 @@
-﻿using PawnShop.Script.Manager.Gameplay;
-using PawnShop.Script.Model.Move;
-using PawnShop.Script.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PawnShop.Script.Model.Coin
+﻿namespace PawnShop.Script.Model.Coin
 {
     /// <summary>
     /// Manager class to record a timeline of all coins spawned during the match.

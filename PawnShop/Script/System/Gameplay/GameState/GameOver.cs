@@ -1,14 +1,9 @@
 ﻿using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Manager.GUI;
-using PawnShop.Script.Model.GUI.View;
-using PawnShop.Script.Model.Player;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Model.Move;
 using PawnShop.Script.Model.GUI.Label;
+using PawnShop.Script.Model.GUI.View;
+using PawnShop.Script.Model.Move;
+using PawnShop.Script.Model.Player;
 
 namespace PawnShop.Script.System.Gameplay.GameState
 {
@@ -23,7 +18,7 @@ namespace PawnShop.Script.System.Gameplay.GameState
 
         public override void Start()
         {
-            gameOverView = new GameOverView(player, playerView.InputController, 
+            gameOverView = new GameOverView(player, playerView.InputController,
                 new MatchStatistic(player), matchOutcome);
             playerView.AddView(gameOverView);
         }

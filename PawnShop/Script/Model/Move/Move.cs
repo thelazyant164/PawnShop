@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Manager.Gameplay;
+﻿using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Piece;
-using static PawnShop.Script.Model.Board.Position;
-using static PawnShop.Script.Model.Board.Position.HighlightType;
 using static PawnShop.Script.Model.Piece.BasePiece.PieceRole;
 
 namespace PawnShop.Script.Model.Move
@@ -20,7 +13,7 @@ namespace PawnShop.Script.Model.Move
         private readonly Coin.Coin? coin;
         public Coin.Coin? Coin => coin;
 
-        public Move(BasePiece piece, Position target) 
+        public Move(BasePiece piece, Position target)
         {
             this.piece = piece;
             if (GameManager.Instance.Board.TryLocate(piece, out Position? pos))
@@ -51,7 +44,7 @@ namespace PawnShop.Script.Model.Move
         public override void Abort()
         {
             piece.MoveTo(current);
-            if (coin != null) 
+            if (coin != null)
             {
                 coin.Restore();
                 player.Spend(coin.Value);

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Manager.Gameplay;
-using PawnShop.Script.Manager.GUI;
+﻿using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Move;
 using PawnShop.Script.Model.Piece;
@@ -27,7 +20,7 @@ namespace PawnShop.Script.System.Gameplay.PlayerState
         private bool upgradeMode => PlayerStateSystem.Cache.UpgradeMode;
         private PieceRole? upgradeRole => PlayerStateSystem.Cache.UpgradeRole;
 
-        public PlanningTurn(PlayerStateSystem playerStateSystem) : base(playerStateSystem) 
+        public PlanningTurn(PlayerStateSystem playerStateSystem) : base(playerStateSystem)
         {
         }
 
@@ -43,9 +36,9 @@ namespace PawnShop.Script.System.Gameplay.PlayerState
             }
         }
 
-        public override void Progress() 
+        public override void Progress()
         {
-            if (piece != null && position != null) 
+            if (piece != null && position != null)
             {
                 new Turn(PlayerStateSystem.Side, BaseMove.Plan(piece, position));
                 PlayerStateSystem.SetPlayerState(new AwaitingTurn(PlayerStateSystem));

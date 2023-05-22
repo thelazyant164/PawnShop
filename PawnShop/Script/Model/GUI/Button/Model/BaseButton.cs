@@ -1,9 +1,9 @@
-﻿using SplashKitSDK;
-using PawnShop.Script.Model.GUI.Interface;
-using PawnShop.Script.Model.GUI.Component;
-using PawnShop.Script.Model.GUI.Button.State;
+﻿using PawnShop.Script.Model.GUI.Button.State;
 using PawnShop.Script.Model.GUI.Button.UIState;
 using PawnShop.Script.Model.GUI.Button.UIStateData;
+using PawnShop.Script.Model.GUI.Component;
+using PawnShop.Script.Model.GUI.Interface;
+using SplashKitSDK;
 using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
 
 namespace PawnShop.Script.Model.GUI.Button.Model

@@ -1,10 +1,5 @@
 ﻿using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Player;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PawnShop.Script.Model.Move
 {
@@ -21,7 +16,7 @@ namespace PawnShop.Script.Model.Move
         public readonly int PieceUpgraded = 0;
         private readonly IReadOnlyList<Turn> history;
 
-        public MatchStatistic(BasePlayer player) 
+        public MatchStatistic(BasePlayer player)
         {
             history = GameManager.Instance.History.MatchHistory;
 

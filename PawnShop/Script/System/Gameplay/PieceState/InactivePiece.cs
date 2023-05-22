@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PawnShop.Script.System.Gameplay.PieceState
+﻿namespace PawnShop.Script.System.Gameplay.PieceState
 {
     public sealed class InactivePiece : PieceState
     {
-        public InactivePiece(PieceStateSystem pieceStateSystem) : base(pieceStateSystem) 
+        public InactivePiece(PieceStateSystem pieceStateSystem) : base(pieceStateSystem)
         {
         }
 

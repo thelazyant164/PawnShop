@@ -1,9 +1,7 @@
-using System;
 using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Manager.GUI;
-using static PawnShop.Script.Model.Player.BasePlayer.PlayerType;
-using PawnShop.Script.Utility;
 using SplashKitSDK;
+using static PawnShop.Script.Model.Player.BasePlayer.PlayerType;
 
 namespace PawnShop
 {

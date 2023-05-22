@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Manager.Gameplay;
-using PawnShop.Script.Model.GUI.Interface;
+﻿using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Player;
-using PawnShop.Script.System.Gameplay.PieceState;
 using PawnShop.Script.Utility;
-using static PawnShop.Script.Model.Player.BasePlayer;
 
 namespace PawnShop.Script.System.GUI.Input
 {
@@ -23,8 +15,8 @@ namespace PawnShop.Script.System.GUI.Input
             PlayerManager playerManager = GameManager.Instance.PlayerManager;
             playerManager.OnTurnChange += OnTurnChange;
 
-            SetState(playerManager.CurrentTurn == Player.Side 
-                ? new InputEnabled(this) 
+            SetState(playerManager.CurrentTurn == Player.Side
+                ? new InputEnabled(this)
                 : new InputDisabled(this));
         }
 

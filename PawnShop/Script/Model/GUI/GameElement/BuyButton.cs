@@ -1,20 +1,10 @@
-﻿using PawnShop.Script.Manager.Gameplay;
-using PawnShop.Script.Model.GUI.Button.Model;
+﻿using PawnShop.Script.Model.GUI.Button.Model;
 using PawnShop.Script.Model.GUI.Button.UIState;
 using PawnShop.Script.Model.GUI.Button.UIStateData;
-using PawnShop.Script.Model.Player;
-using PawnShop.Script.System.Gameplay;
 using PawnShop.Script.System.Gameplay.PlayerState;
 using SplashKitSDK;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static PawnShop.Script.Model.GUI.Interface.IImage;
 using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
-using static PawnShop.Script.Model.Player.BasePlayer;
-using static PawnShop.Script.Model.Player.BasePlayer.PlayerSide;
 
 namespace PawnShop.Script.Model.GUI.GameElement
 {
@@ -61,11 +51,11 @@ namespace PawnShop.Script.Model.GUI.GameElement
         private bool enabled = false;
         private bool activated = false;
 
-        public override ImageContent Content => activated 
-            ? cancelUIstate.GetState(state.State).Content 
+        public override ImageContent Content => activated
+            ? cancelUIstate.GetState(state.State).Content
             : UIstate.GetState(state.State).Content;
 
-        public BuyButton() : base(rect, UIstate) 
+        public BuyButton() : base(rect, UIstate)
         {
             PlanningTurn.OnEnableBuyMode += (object? sender, EventArgs e) =>
             {

@@ -1,16 +1,8 @@
-﻿using SplashKitSDK;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Model.GUI.Interface;
-using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
-using static PawnShop.Script.Model.GUI.Interface.IPrimitive;
-using PawnShop.Script.Model.GUI.Button.UIState;
+﻿using PawnShop.Script.Model.GUI.Button.UIState;
 using PawnShop.Script.Model.GUI.Button.UIStateData;
+using SplashKitSDK;
 using static PawnShop.Script.Model.GUI.Interface.IImage;
-using PawnShop.Script.Model.Piece;
+using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
 using static PawnShop.Script.Model.Piece.BasePiece;
 using static PawnShop.Script.Model.Piece.BasePiece.PieceRole;
 
@@ -37,18 +29,18 @@ namespace PawnShop.Script.Model.GUI.View
         private static readonly int buttonY = 330;
         private static readonly int buttonSize = 112;
 
-        private static readonly PrimitiveRect KnightRect = 
+        private static readonly PrimitiveRect KnightRect =
             new PrimitiveRect(knightX, buttonY, buttonSize, buttonSize);
-        private static readonly PrimitiveRect BishopRect = 
+        private static readonly PrimitiveRect BishopRect =
             new PrimitiveRect(bishopX, buttonY, buttonSize, buttonSize);
-        private static readonly PrimitiveRect RookRect = 
+        private static readonly PrimitiveRect RookRect =
             new PrimitiveRect(rookX, buttonY, buttonSize, buttonSize);
-        private static readonly PrimitiveRect QueenRect 
+        private static readonly PrimitiveRect QueenRect
             = new PrimitiveRect(queenX, buttonY, buttonSize, buttonSize);
 
         public static PrimitiveRect GetRect(PieceRole role)
         {
-            switch (role) 
+            switch (role)
             {
                 case Knight:
                     return KnightRect;

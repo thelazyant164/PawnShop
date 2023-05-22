@@ -1,16 +1,9 @@
 ﻿using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Board;
 using PawnShop.Script.Utility;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static PawnShop.Script.Model.Player.BasePlayer;
-using static PawnShop.Script.Model.Piece.BasePiece;
 using static PawnShop.Script.Model.Board.Board;
+using static PawnShop.Script.Model.Piece.BasePiece;
+using static PawnShop.Script.Model.Player.BasePlayer;
 
 namespace PawnShop.Script.Model.Piece
 {
@@ -89,7 +82,7 @@ namespace PawnShop.Script.Model.Piece
         /// </returns>
         public static List<BasePiece> InitializePieces()
         {
-            if (dir == null || file == null) 
+            if (dir == null || file == null)
                 throw new Exception("File path to pieces CSV data not set.");
             List<BasePiece> pieces = new List<BasePiece>();
             foreach (

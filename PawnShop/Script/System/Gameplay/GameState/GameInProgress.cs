@@ -1,12 +1,6 @@
 ﻿using PawnShop.Script.Manager.Gameplay;
-using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Move;
 using PawnShop.Script.Model.Player;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PawnShop.Script.System.Gameplay.GameState
 {
@@ -15,9 +9,9 @@ namespace PawnShop.Script.System.Gameplay.GameState
         private readonly History history;
         private readonly BasePlayer? player;
         public static event EventHandler? OnNewTurn;
-        public static event EventHandler? OnRefresh; // TODO: differentiate undo refresh & new refresh; only spawn coin1 on new refresh
+        public static event EventHandler? OnRefresh;
 
-        public GameInProgress(GameStateSystem gameStateSystem) : base(gameStateSystem) 
+        public GameInProgress(GameStateSystem gameStateSystem) : base(gameStateSystem)
         {
             PlayerManager playerManager = GameManager.Instance.PlayerManager;
             history = GameManager.Instance.History;

@@ -2,12 +2,6 @@
 using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Move;
 using PawnShop.Script.Model.Player;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using static PawnShop.Script.Model.Board.Position.HighlightType;
 
 namespace PawnShop.Script.System.Gameplay.PlayerState

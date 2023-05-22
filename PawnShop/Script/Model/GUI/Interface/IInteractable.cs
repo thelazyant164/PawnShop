@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PawnShop.Script.Model.GUI.Interface
+﻿namespace PawnShop.Script.Model.GUI.Interface
 {
     public interface IInteractable : IVisible
     {

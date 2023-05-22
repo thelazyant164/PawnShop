@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-
 namespace PawnShop.Script.Utility
 {
     /// <summary>

@@ -1,30 +1,21 @@
 ﻿using PawnShop.Script.Model.Board;
+using PawnShop.Script.Model.Coin;
 using PawnShop.Script.Model.GUI.Button.Model;
-using PawnShop.Script.Model.GUI.Interface;
 using PawnShop.Script.Model.GUI.GameElement;
-using static PawnShop.Script.Model.GUI.Interface.IClickable;
-using SplashKitSDK;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Manager.Gameplay;
-using PawnShop.Script.System.GUI.Input;
 using PawnShop.Script.Model.Piece;
 using PawnShop.Script.Model.Player;
-using PawnShop.Script.Manager.GUI;
-using PawnShop.Script.Model.Coin;
+using PawnShop.Script.System.GUI.Input;
+using SplashKitSDK;
 
 namespace PawnShop.Script.Model.GUI.View
 {
-    public sealed class BoardView : BaseView 
+    public sealed class BoardView : BaseView
     {
         public BoardView(BasePlayer player, InputSystem inputController, Board.Board board) : base(player, inputController)
         {
             PieceFactory.OnPieceAdd += OnPieceAdd;
             CoinSpawner.OnSpawn += OnSpawnCoin;
-            foreach (Position position in board.Positions) 
+            foreach (Position position in board.Positions)
             {
                 InitPosition(position);
             }
@@ -82,15 +73,15 @@ namespace PawnShop.Script.Model.GUI.View
             }
         }
 
-        private void OnPositionAdd(Position newPosition) 
+        private void OnPositionAdd(Position newPosition)
         {
             InvisibleButton positionButton = BoardViewFactory.InitPositionButton(newPosition);
-            positionButton.OnClick += (object? sender, EventArgs e) 
+            positionButton.OnClick += (object? sender, EventArgs e)
                 => Input.TogglePositionSelect(newPosition);
             Interactables.Add(positionButton);
 
             PositionIndicator positionIndicator = BoardViewFactory.InitPositionIndicator(newPosition);
-            newPosition.OnHighlight += (object? sender, Position.HighlightType type) 
+            newPosition.OnHighlight += (object? sender, Position.HighlightType type)
                 => Input.ToggleIndicatorHighlight(positionIndicator, type);
             Visibles.Add(positionIndicator);
         }

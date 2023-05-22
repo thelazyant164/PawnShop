@@ -1,10 +1,6 @@
 ﻿using PawnShop.Script.Manager.Gameplay;
 using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Piece;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using static PawnShop.Script.Model.Piece.BasePiece;
 using static PawnShop.Script.Model.Piece.BasePiece.PieceRole;
 

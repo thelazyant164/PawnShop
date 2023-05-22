@@ -1,18 +1,11 @@
-﻿using PawnShop.Script.Model.GUI.Sprite.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Model.GUI.Interface;
-using PawnShop.Script.Model.GUI.Sprite.UIStateData;
+﻿using PawnShop.Script.Model.GUI.Component;
+using PawnShop.Script.Model.GUI.Sprite.Model;
 using PawnShop.Script.Model.GUI.Sprite.UIState;
-using PawnShop.Script.Model.GUI.Component;
-using static PawnShop.Script.Model.GUI.Interface.IPrimitive;
-using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
-using static PawnShop.Script.Model.GUI.Interface.IImage;
-using SplashKitSDK;
+using PawnShop.Script.Model.GUI.Sprite.UIStateData;
 using PawnShop.Script.Model.GUI.View;
+using SplashKitSDK;
+using static PawnShop.Script.Model.GUI.Interface.IImage;
+using static PawnShop.Script.Model.GUI.Interface.IPrimitive;
 
 namespace PawnShop.Script.Model.GUI.GameElement
 {
@@ -30,15 +23,15 @@ namespace PawnShop.Script.Model.GUI.GameElement
             return images;
         }
 
-        private static readonly ImageSpriteUIStateData coinUIStateData 
+        private static readonly ImageSpriteUIStateData coinUIStateData
             = new ImageSpriteUIStateData(ReadAnimation(10));
-        private static readonly ImageSpriteUIState UIState 
+        private static readonly ImageSpriteUIState UIState
             = new ImageSpriteUIState(coinUIStateData);
 
         private ImageSprite coinSprite;
         private bool collected = false;
 
-        public CoinSprite(Board.Position position) : base(Position.Origin) 
+        public CoinSprite(Board.Position position) : base(Position.Origin)
         {
             coinSprite = new ImageSprite(BoardViewFactory.GetPosition(position.Coordinate), UIState);
         }

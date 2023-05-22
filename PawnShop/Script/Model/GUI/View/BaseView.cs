@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PawnShop.Script.Model.GUI.Component;
 using PawnShop.Script.Model.GUI.Interface;
-using PawnShop.Script.Manager.GUI;
-using SplashKitSDK;
-using PawnShop.Script.System.GUI.Input;
 using PawnShop.Script.Model.Player;
-using PawnShop.Script.Model.GUI.Component;
+using PawnShop.Script.System.GUI.Input;
 using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
 
 namespace PawnShop.Script.Model.GUI.View

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Model.Board;
+﻿using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Piece;
 using PawnShop.Script.Model.Player.Cache;
 using PawnShop.Script.Model.Player.Controller;
@@ -107,7 +102,7 @@ namespace PawnShop.Script.Model.Player
         /// Callback delegate to respond to a captured piece being restored on the board.
         /// </summary>
         /// <remarks>Register to a captured piece and unregister from restored pieces.</remarks>
-        private void Restore(object? sender, BasePiece restoredPiece) 
+        private void Restore(object? sender, BasePiece restoredPiece)
         {
             info.Add(restoredPiece);
             controller.Register(restoredPiece);
@@ -115,7 +110,7 @@ namespace PawnShop.Script.Model.Player
             restoredPiece.OnCapture += Remove;
         }
 
-        private void Remove(object? sender, BasePiece capturedPiece) 
+        private void Remove(object? sender, BasePiece capturedPiece)
         {
             info.Remove(capturedPiece);
             controller.Unregister(capturedPiece);
@@ -128,7 +123,7 @@ namespace PawnShop.Script.Model.Player
         /// </summary>
         /// <remarks>To be called by <c>Buy</c> or <c>Upgrade</c>.</remarks>
         /// <param name="coin">Number of Coins to deduct.</param>
-        public void Spend(int coin) 
+        public void Spend(int coin)
         {
             info.Spend(coin);
             OnCoinUpdate?.Invoke(this, Currency);
@@ -140,10 +135,10 @@ namespace PawnShop.Script.Model.Player
         /// <remarks>To be called by <c>Capture</c> or <c>Collect</c>.</remarks>
         /// <param name="coin">Number of Coins to add.</param>
         public void Gain(int coin)
-        { 
+        {
             info.Gain(coin);
             OnCoinUpdate?.Invoke(this, Currency);
-        } 
+        }
 
         public void Progress()
         {

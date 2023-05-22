@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Model.Board;
+﻿using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Coin;
 using PawnShop.Script.Model.Move;
 using PawnShop.Script.Model.Piece;
-using PawnShop.Script.Model.Player;
 using PawnShop.Script.System.Gameplay.GameState;
-using PawnShop.Script.System.GUI.Input;
 using PawnShop.Script.Utility;
 using static PawnShop.Script.Model.Player.BasePlayer;
 

@@ -1,16 +1,7 @@
 ﻿using PawnShop.Script.Manager.Gameplay;
-using PawnShop.Script.Manager.GUI;
 using PawnShop.Script.Model.Board;
 using PawnShop.Script.Model.Piece;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static PawnShop.Script.Model.Board.Position.HighlightType;
-using PawnShop.Script.Utility;
-using PawnShop.Script.Model.Player;
-using PawnShop.Script.System.Gameplay.PlayerState;
 
 namespace PawnShop.Script.System.Gameplay.PieceState
 {
@@ -23,7 +14,7 @@ namespace PawnShop.Script.System.Gameplay.PieceState
         private readonly Position currentPosition;
         private bool upgradeMode => PieceStateSystem.Cache.UpgradeMode;
 
-        public UpgradingPiece(PieceStateSystem pieceStateSystem) : base(pieceStateSystem) 
+        public UpgradingPiece(PieceStateSystem pieceStateSystem) : base(pieceStateSystem)
         {
             GameManager.Instance.Board.TryLocate(PieceStateSystem.Piece, out Position? currentPos);
             currentPosition = currentPos!;

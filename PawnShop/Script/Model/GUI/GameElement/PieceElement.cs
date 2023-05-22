@@ -1,17 +1,9 @@
 ﻿using PawnShop.Script.Model.GUI.Button.Model;
-using PawnShop.Script.Model.GUI.Component;
-using PawnShop.Script.Model.GUI.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
-using static PawnShop.Script.Model.GUI.Interface.IPrimitive;
 using PawnShop.Script.Model.GUI.Button.UIState;
-using PawnShop.Script.Model.Board;
+using PawnShop.Script.Model.GUI.Interface;
 using PawnShop.Script.Model.GUI.View;
 using PawnShop.Script.Model.Piece;
+using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
 
 namespace PawnShop.Script.Model.GUI.GameElement
 {
@@ -35,7 +27,7 @@ namespace PawnShop.Script.Model.GUI.GameElement
             Show();
         }
 
-        public void OnMove(object? sender, Board.Position position) 
+        public void OnMove(object? sender, Board.Position position)
             => OnMove(sender, BoardViewFactory.GetPosition(position.Coordinate));
 
         private void OnMove(object? sender, IPrimitive.Position position)

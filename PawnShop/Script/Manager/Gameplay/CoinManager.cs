@@ -1,16 +1,6 @@
-﻿using PawnShop.Script.Model.Coin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PawnShop.Script.Model.Board;
+﻿using PawnShop.Script.Model.Board;
+using PawnShop.Script.Model.Coin;
 using PawnShop.Script.System.Gameplay.GameState;
-using PawnShop.Script.Model.Player;
-using static PawnShop.Script.Model.Player.BasePlayer.PlayerSide;
-using System.Collections;
-using System.ComponentModel;
-using System.Security.AccessControl;
 
 namespace PawnShop.Script.Manager.Gameplay
 {
@@ -29,7 +19,7 @@ namespace PawnShop.Script.Manager.Gameplay
         private List<Coin> coins { get; } = new();
         private List<Coin> activeCoins { get; } = new();
 
-        public CoinManager() 
+        public CoinManager()
         {
             CoinSpawner.OnSpawn += OnSpawn;
             PlayerManager.OnStartGame += (object? sender, EventArgs e) => GameInProgress.OnNewTurn += OnNewTurn;
@@ -56,7 +46,7 @@ namespace PawnShop.Script.Manager.Gameplay
             }
         }
 
-        private void OnSpawn(Coin coin) 
+        private void OnSpawn(Coin coin)
         {
             coins.Add(coin);
             coin.OnCollect += (object? sender, Coin coin) => coinBuffer.Add(() => activeCoins.Remove(coin));
@@ -88,16 +78,16 @@ namespace PawnShop.Script.Manager.Gameplay
         private void Age() => coins.ForEach(coin => coin.Age());
         private void Deage() => coins.ForEach(coin => coin.Deage());
 
-        public void Execute() 
+        public void Execute()
         {
             Age();
-            history.Execute(); 
+            history.Execute();
         }
 
-        public void Abort() 
+        public void Abort()
         {
             Deage();
-            history.Abort(); 
+            history.Abort();
         }
 
         public void Progress()

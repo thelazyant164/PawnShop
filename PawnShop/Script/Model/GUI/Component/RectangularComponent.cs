@@ -1,9 +1,4 @@
 ﻿using PawnShop.Script.Model.GUI.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SplashKitSDK;
 using static PawnShop.Script.Model.GUI.Interface.IPrimitiveRect;
 
@@ -27,7 +22,7 @@ namespace PawnShop.Script.Model.GUI.Component
                 };
         }
 
-        public RectangularComponent(PrimitiveRect rect) 
+        public RectangularComponent(PrimitiveRect rect)
         {
             X = rect.Origin.X;
             Y = rect.Origin.Y;
